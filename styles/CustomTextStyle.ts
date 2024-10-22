@@ -5,8 +5,9 @@ const CustomTextStyle = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#ffffff',
-    textAlign: 'center', // Centraliza o texto horizontalmente
-    flex: 1, // Permite que o texto ocupe o espaço disponível
+    textAlign: 'center',
+    flex: 1, 
+    marginBottom: 20
   }
 });
 
