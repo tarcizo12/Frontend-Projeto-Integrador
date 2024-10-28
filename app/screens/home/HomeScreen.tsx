@@ -15,13 +15,13 @@ export default function HomeScreen() {
   };
 
   const handleDirecionarParaTelaPaciente = (): void => {
-    alert('Implementar navegacao para tela do paciente');
+    alert('Implementar navegação para tela do paciente');
   };
 
   return (
     <View style={HomeScreenStyle.container}>
       <View style={HomeScreenStyle.titleContainer}>
-        <CustomText label="Projeto Integrador" />
+        <CustomText label="Acompanha+" />
       </View>
       <View style={HomeScreenStyle.buttonContainer}>
         <CustomButton label="Ir para tela de paciente" func={handleDirecionarParaTelaPaciente} />
