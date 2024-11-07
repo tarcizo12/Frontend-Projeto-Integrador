@@ -4,10 +4,22 @@ import HomeScreenStyle from '@/styles/HomeScreenStyle';
 import CustomText from '@/components/CustomText';
 import SearchBarPacientes from '@/components/SearchBarPacientes';
 import ListPacientesStyle from '@/styles/ListPacientesStyle';
-import { RootStackParamList } from '@/constants/types/RootStackParamList';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 
+type PacienteInfo = {
+  name: string;
+  photo: string;
+  email: string;
+};
+
+export type RootStackParamList = {
+  Home: undefined;
+  Paciente: { pacienteInfo: PacienteInfo } | undefined;
+};
+
+
 export default function HomePsciologoScreen() {
+  
   const { width } = Dimensions.get('window');
 
   const stylesSearchBar = {
@@ -29,11 +41,12 @@ export default function HomePsciologoScreen() {
     },
   };
 
+   
+
   const Navigation: NavigationProp<RootStackParamList> = useNavigation<NavigationProp<RootStackParamList>>();
-
-  const handleDirecionarParaTelaDoPaciente = (): void => {
-    Navigation.navigate('Paciente');
-
+  // remover o any e colocar o tipo correto
+  const handleDirecionarParaTelaDoPaciente = (props: PacienteInfo): void => {
+    Navigation.navigate('Paciente', { pacienteInfo: props });
   };
 
   const pacientes = [
@@ -150,7 +163,7 @@ export default function HomePsciologoScreen() {
         {pacientes.map((paciente, index) => (
           <TouchableOpacity 
             key={index}
-            onPress={() => handleDirecionarParaTelaDoPaciente()}
+            onPress={() => handleDirecionarParaTelaDoPaciente(paciente)}
           >
             <View style={ListPacientesStyle.item}>
               <View>
