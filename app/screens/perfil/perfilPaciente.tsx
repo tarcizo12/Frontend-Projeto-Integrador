@@ -22,28 +22,28 @@ export default function PerfilPaciente() {
       id: 1,
       date: '2021-09-01',
       description: 'Paciente relatou que está com dificuldades para dormir.',
-      emottion: 'sad',
+      emotion: 'Triste',
       emoji: '😢',
     },
     {
       id: 2,
       date: '2021-09-02',
       description: 'Paciente relatou que está com dificuldades para dormir.',
-      emottion: 'sad',
+      emotion: 'Triste',
       emoji: '😢',
     },
     {
       id: 3,
       date: '2021-09-03',
       description: 'Paciente relatou que está com dificuldades para dormir.',
-      emottion: 'sad',
+      emotion: 'Triste',
       emoji: '😢',
     },
     {
       id: 4,
       date: '2021-09-04',
       description: 'Paciente relatou que está com dificuldades para dormir.',
-      emottion: 'sad',
+      emotion: 'Triste',
       emoji: '😢',
     },
   ];
@@ -82,8 +82,7 @@ export default function PerfilPaciente() {
           renderItem={({ item }) => (
             <View style={styles.reportsContainer}>
               <Text>Data: {item.date}</Text>
-                <Text>Emoção: {item.emottion + ' ' + item.emoji}</Text>
-                <Text>Descrição: {item.description}</Text>
+                <Text>Emoção: {item.emotion + ' ' + item.emoji}</Text>
               <Text>Descrição: {item.description}</Text>
             </View>
           )}
