@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import HomeScreenStyle from '@/styles/HomeScreenStyle';
-import CustomText from '@/components/CustomText';
+import ScreenRoutes from '@/constants/ScreenRoutes';
 import CustomButton from '@/components/CustomButton';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@/constants/types/RootStackParamList';
@@ -10,12 +9,11 @@ export default function HomeScreen() {
   const Navigation: NavigationProp<RootStackParamList> = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handleDirecionarParaTelaPsicologo = (): void => {
-    Navigation.navigate('Psicologo');
-
+    Navigation.navigate(ScreenRoutes.HOME_PSICOLOGO_SCREEN);
   };
 
   const handleDirecionarParaTelaPaciente = (): void => {
-    alert('Implementar navegação para tela do paciente');
+    Navigation.navigate(ScreenRoutes.HOME_PACIENTE_SCREEN);
   };
 
   return (

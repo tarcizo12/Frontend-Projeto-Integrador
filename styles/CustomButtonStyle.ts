@@ -25,13 +25,13 @@ const CustomButtonStyle = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  itemName: {
+  itemPrimary: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
   },
 
-  itemEmail: {
+  itemSecondary: {
     fontSize: 14,
     color: '#666',
   },

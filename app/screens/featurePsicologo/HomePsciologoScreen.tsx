@@ -19,6 +19,7 @@ export type RootStackParamList = {
   Paciente: { pacienteInfo: PacienteInfo } | undefined;
 };
 
+const MOCK_PACIENTES: PacienteModel[] = PacienteMockFactory.criarListaMockPacientes()
 
 export default function HomePsciologoScreen() {
   
@@ -50,8 +51,6 @@ export default function HomePsciologoScreen() {
   };
 
 
-  const mockPacientes: PacienteModel[] = PacienteMockFactory.criarListaMockPacientes()
-
   const renderCellsPaciente = (pacientes: PacienteModel[]) => {
     return (
       <ScrollView>
@@ -78,7 +77,7 @@ export default function HomePsciologoScreen() {
     <View style={HomeScreenStyle.container}>
       <CustomText label="Acompanhar pacientes" />     
       <SearchBarPacientes placeholder={'Buscar paciente'} style={stylesSearchBar}/>  
-      {renderCellsPaciente(mockPacientes)}
+      {renderCellsPaciente(MOCK_PACIENTES)}
     </View>
 );
 }

@@ -15,8 +15,8 @@ const CustomPacienteCell: React.FC<PacienteItemProps> = ({ paciente, onPress,  }
       <View style={CustomButtonStyle.item}>
         <Image source={{ uri }} style={CustomButtonStyle.itemPhoto}/>
         <View style={CustomButtonStyle.itemText}>
-          <Text style={CustomButtonStyle.itemName}>{paciente.getNome()}</Text>
-          <Text style={CustomButtonStyle.itemEmail}>{paciente.getEmail()}</Text>
+          <Text style={CustomButtonStyle.itemPrimary}>{paciente.getNome()}</Text>
+          <Text style={CustomButtonStyle.itemSecondary}>{paciente.getEmail()}</Text>
         </View>
       </View>
     </TouchableOpacity>
