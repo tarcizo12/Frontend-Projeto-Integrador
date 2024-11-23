@@ -2,18 +2,21 @@
   "expo": {
     "name": "Frontend-Projeto-Integrador",
     "slug": "Frontend-Projeto-Integrador",
+    "newArchEnabled": true,
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "myapp",
-    "entryPoint": "./app/App.tsx",  
+    "entryPoint": "./app/App.tsx",
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#ffffff",
+        "newArchEnabled": true
+      },
+      "package": "com.anonymous.FrontendProjetoIntegrador"
     },
     "web": {
       "bundler": "metro",
