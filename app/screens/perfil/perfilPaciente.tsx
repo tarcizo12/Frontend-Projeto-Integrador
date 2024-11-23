@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList, Dimensions } from 'react-native';
-import { RouteProp, useRoute } from '@react-navigation/native';
-import { RootStackParamList } from '../featurePsicologo/HomePsciologoScreen';
+import { useRoute } from '@react-navigation/native';
+import { PacienteRouteProp } from '@/constants/types/PacienteRouteProp';
 
-type PacienteRouteProp = RouteProp<RootStackParamList, 'Paciente'>;
 
 const RelatoItem = ({ relato }: { relato: { date: string, description: string, emotion: string, emoji: string } }) => (
   <View style={styles.reportsContainer}>

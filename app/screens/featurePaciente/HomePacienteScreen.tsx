@@ -1,64 +1,60 @@
-import React from 'react';
-import { View, Dimensions, ScrollView, Image, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Dimensions, ScrollView, TouchableOpacity, Modal, Text, TextInput, StyleSheet } from 'react-native';
 import HomeScreenStyle from '@/styles/HomeScreenStyle';
 import CustomText from '@/components/CustomText';
-import { PacienteModel } from '@/constants/models/PacienteModel';
-import CustomAnotacaoCell from './CustomAnotacaoCell';
+import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel'; 
+import CustomAnotacaoCell from './componentes/CustomAnotacaoCell';
 import SearchBarPacientes from '@/components/SearchBarPacientes';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel'; 
 import { AnotacaoPacienteMockFactory } from '@/constants/mock/AnotacaoPacienteMockFactory';
-import { RootStackParamList } from '../featurePsicologo/HomePsciologoScreen';
+import { RootStackParamList } from '@/constants/types/RootStackParamList';
+import { AnotacaoModalProps } from '@/constants/types/AnotacaoModalProps'
+import AddButton from '@/components/AddButton';
+import AnotacaoModal from './componentes/AnotacaoModal';
 
 export default function HomePacienteScreen() {
-  
-  const { width } = Dimensions.get('window');
-  const MOCK_ANOTACOES: AnotacaoPacienteModel[] = AnotacaoPacienteMockFactory.criarListaMockAnotacoes()
-
-  const stylesSearchBar = {
-    input: {
-      backgroundColor: '#F6F7FB',
-      borderRadius: 30,
-    },
-
-    container: {
-      width: width * 0.94,
-      backgroundColor: '#ffffff0',
-      borderBottomWidth: 0,
-      borderTopWidth: 0,    
-    },
-
-    inputStyle: {
-      color: '#000000',
-    },
-  };
-
-  //TODO
+  const [modalVisible, setModalVisible] = useState(false);
+  const [inputText, setInputText] = useState('');
+  const MOCK_ANOTACOES: AnotacaoPacienteModel[] = AnotacaoPacienteMockFactory.criarListaMockAnotacoes();
   const Navigation: NavigationProp<RootStackParamList> = useNavigation<NavigationProp<RootStackParamList>>();
-  
-
 
   const renderCellsAnotacoes = (anotacoes: AnotacaoPacienteModel[]) => {
     return (
       <ScrollView>
         {anotacoes.map((anotacao) => (
           <CustomAnotacaoCell
-            key={anotacao.getIdAnotacao()} 
+            key={anotacao.getIdAnotacao()}
             anotacao={anotacao}
-            onPress={() =>console.log("TODO")}
+            onPress={() => console.log("TODO")}
           />
         ))}
       </ScrollView>
     );
   };
-  
-  
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
   return (
     <View style={HomeScreenStyle.container}>
-      <CustomText label="Minhas anotações" />     
-      <SearchBarPacientes placeholder={'Buscar anotacao'} style={stylesSearchBar}/>  
+      <CustomText label="Minhas anotações" />
+      <SearchBarPacientes placeholder="Buscar anotação"/>
       {renderCellsAnotacoes(MOCK_ANOTACOES)}
+      <AddButton onPress={openModal} />
+      <AnotacaoModal
+        visible={modalVisible}
+        onClose={closeModal}
+        inputText={inputText}
+        setInputText={setInputText}
+      />
     </View>
-);
+  );
 }
+
+
+

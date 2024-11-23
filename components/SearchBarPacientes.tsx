@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
-import { Keyboard } from 'react-native';
+import { Dimensions, Keyboard } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
-interface StyleProps {
-  container: object;
-  input: object;
-  inputStyle: object;
-}
 
-export default function SearchBarPacientes({ placeholder, style }: { placeholder: string, style: StyleProps }) {
+export default function SearchBarPacientes({ placeholder }: { placeholder: string}) {
+  const { width } = Dimensions.get('window');
+
+    const style = {
+    input: {
+      backgroundColor: '#F6F7FB',
+      borderRadius: 30,
+    },
+
+    container: {
+      width: width * 0.94,
+      backgroundColor: '#ffffff0',
+      borderBottomWidth: 0,
+      borderTopWidth: 0,    
+    },
+
+    inputStyle: {
+      color: '#000000',
+    },
+  };
 
   const [value, setValue] = useState('');
   const [loading, setLoading] = useState(false);

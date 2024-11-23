@@ -7,47 +7,23 @@ import { PacienteModel } from '@/constants/models/PacienteModel';
 import CustomPacienteCell from './CustomPacienteCell';
 import SearchBarPacientes from '@/components/SearchBarPacientes';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-
-type PacienteInfo = {
-  name: string;
-  photo: string;
-  email: string;
-};
-
-export type RootStackParamList = {
-  Home: undefined;
-  Paciente: { pacienteInfo: PacienteInfo } | undefined;
-};
+import ScreenRoutes from '@/constants/ScreenRoutes';
+import { RootStackParamList } from '@/constants/types/RootStackParamList';
+import { PacienteInfo } from '@/constants/types/PacienteInfo';
 
 const MOCK_PACIENTES: PacienteModel[] = PacienteMockFactory.criarListaMockPacientes()
 
 export default function HomePsciologoScreen() {
   
-  const { width } = Dimensions.get('window');
 
-  const stylesSearchBar = {
-    input: {
-      backgroundColor: '#F6F7FB',
-      borderRadius: 30,
-    },
 
-    container: {
-      width: width * 0.94,
-      backgroundColor: '#ffffff0',
-      borderBottomWidth: 0,
-      borderTopWidth: 0,    
-    },
 
-    inputStyle: {
-      color: '#000000',
-    },
-  };
 
   
   const Navigation: NavigationProp<RootStackParamList> = useNavigation<NavigationProp<RootStackParamList>>();
   
   const handleDirecionarParaTelaDoPaciente = (props: PacienteInfo): void => {
-    Navigation.navigate('Paciente', { pacienteInfo: props });
+    Navigation.navigate(ScreenRoutes.PERFIL_PACIENTE_BY_PSCIOLOGO, { pacienteInfo: props });
   };
 
 
@@ -76,7 +52,7 @@ export default function HomePsciologoScreen() {
   return (
     <View style={HomeScreenStyle.container}>
       <CustomText label="Acompanhar pacientes" />     
-      <SearchBarPacientes placeholder={'Buscar paciente'} style={stylesSearchBar}/>  
+      <SearchBarPacientes placeholder={'Buscar paciente'} />  
       {renderCellsPaciente(MOCK_PACIENTES)}
     </View>
 );
