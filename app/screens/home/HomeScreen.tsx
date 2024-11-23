@@ -19,11 +19,8 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={HomeScreenStyle.container}>
-      <View style={HomeScreenStyle.titleContainer}>
-        <CustomText label="Acompanha+" />
-      </View>
-      <View style={HomeScreenStyle.buttonContainer}>
+    <View >
+      <View>
         <CustomButton label="Ir para tela de paciente" func={handleDirecionarParaTelaPaciente} />
         <CustomButton label="Ir para tela do psicólogo" func={handleDirecionarParaTelaPsicologo} />
       </View>

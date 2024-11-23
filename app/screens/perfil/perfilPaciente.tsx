@@ -1,55 +1,37 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Button,
-  TouchableOpacity,
-  FlatList,
-  Dimensions,
-} from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, Dimensions } from 'react-native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../featurePsicologo/HomePsciologoScreen';
-import calendar from '@/icons/calendar.png';
-import notes from '@/icons/notes.png';
 
 type PacienteRouteProp = RouteProp<RootStackParamList, 'Paciente'>;
 
-export default function PerfilPaciente() {
+const RelatoItem = ({ relato }: { relato: { date: string, description: string, emotion: string, emoji: string } }) => (
+  <View style={styles.reportsContainer}>
+    <Text>Data: {relato.date}</Text>
+    <Text>Emoção: {relato.emotion} {relato.emoji}</Text>
+    <Text>Descrição: {relato.description}</Text>
+  </View>
+);
+
+const PacienteInfo = ({ pacienteInfo }: { pacienteInfo: { photo: string, name: string, email: string } }) => (
+  <View style={styles.container}>
+    <Image source={{ uri: pacienteInfo.photo }} style={styles.profileImage} />
+    <Text style={styles.name}>{pacienteInfo.name}</Text>
+    <Text style={styles.email}>{pacienteInfo.email}</Text>
+  </View>
+);
+
+const PerfilPaciente = () => {
   const relatos = [
-    {
-      id: 1,
-      date: '2021-09-01',
-      description: 'Paciente relatou que está com dificuldades para dormir.',
-      emotion: 'Triste',
-      emoji: '😢',
-    },
-    {
-      id: 2,
-      date: '2021-09-02',
-      description: 'Paciente relatou que está com dificuldades para dormir.',
-      emotion: 'Triste',
-      emoji: '😢',
-    },
-    {
-      id: 3,
-      date: '2021-09-03',
-      description: 'Paciente relatou que está com dificuldades para dormir.',
-      emotion: 'Triste',
-      emoji: '😢',
-    },
-    {
-      id: 4,
-      date: '2021-09-04',
-      description: 'Paciente relatou que está com dificuldades para dormir.',
-      emotion: 'Triste',
-      emoji: '😢',
-    },
+    { id: 1, date: '2021-09-01', description: 'Paciente relatou que está com dificuldades para dormir.', emotion: 'Triste', emoji: '😢' },
+    { id: 2, date: '2021-09-02', description: 'Paciente relatou que está com dificuldades para dormir.', emotion: 'Triste', emoji: '😢' },
+    { id: 3, date: '2021-09-03', description: 'Paciente relatou que está com dificuldades para dormir.', emotion: 'Triste', emoji: '😢' },
+    { id: 4, date: '2021-09-04', description: 'Paciente relatou que está com dificuldades para dormir.', emotion: 'Triste', emoji: '😢' },
   ];
 
   const route = useRoute<PacienteRouteProp>();
   const pacienteInfo = route.params?.pacienteInfo;
+
   if (!pacienteInfo) {
     return (
       <View style={styles.container}>
@@ -60,17 +42,7 @@ export default function PerfilPaciente() {
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: pacienteInfo.photo }} style={styles.profileImage} />
-      <Text style={styles.name}>{pacienteInfo.name}</Text>
-      <Text style={styles.email}>{pacienteInfo.email}</Text>
-      <View style={styles.actions}>
-        <TouchableOpacity onPress={() => console.log('Ver notas')}>
-          <Image source={notes} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log('Ver relatos')}>
-          <Image source={calendar} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
+      <PacienteInfo pacienteInfo={pacienteInfo} />
       <View style={styles.reports}>
         <Text style={styles.title}>Relatos</Text>
         <FlatList
@@ -79,18 +51,12 @@ export default function PerfilPaciente() {
           pagingEnabled
           showsHorizontalScrollIndicator={true}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.reportsContainer}>
-              <Text>Data: {item.date}</Text>
-                <Text>Emoção: {item.emotion + ' ' + item.emoji}</Text>
-              <Text>Descrição: {item.description}</Text>
-            </View>
-          )}
+          renderItem={({ item }) => <RelatoItem relato={item} />}
         />
       </View>
     </View>
   );
-}
+};
 
 const { width, height } = Dimensions.get('window');
 
@@ -118,27 +84,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 5,
   },
-
-  actions: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-    marginTop: 20,
-  },
-
-  icon: {
-    width: 30,
-    height: 30,
-    alignSelf: 'center',
-  },
-
   reports: {
     flex: 1,
     width: width * 0.9,
     marginTop: 20,
-    // backgroundColor: 'red',
   },
-
   title: {
     alignSelf: 'center',
     fontSize: 24,
@@ -146,7 +96,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 30,
   },
-
   reportsContainer: {
     alignItems: 'flex-start',
     width: width * 0.8,
@@ -160,3 +109,5 @@ const styles = StyleSheet.create({
     margin: 21,
   },
 });
+
+export default PerfilPaciente;

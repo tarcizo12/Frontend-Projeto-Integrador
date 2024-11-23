@@ -11,7 +11,6 @@ const HomeScreenStyle = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 0,
     backgroundColor: 'white', 
-    marginTop: -300
   },
   titleContainer: {
     width: '100%',

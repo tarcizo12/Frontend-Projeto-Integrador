@@ -1,12 +1,26 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
-import { CustomPacienteCellStyle } from '@/styles/CustomPacienteCellStyle';
+import { TouchableOpacity, View, Image, Text } from 'react-native';
+import CustomButtonStyle from '@/styles/CustomButtonStyle';
+import { PacienteModel } from '@/constants/models/PacienteModel';
 
-export default function CustomPacienteCell({ nome, dataNascimento, onPress }: { nome: string, dataNascimento: string, onPress: () => void }) {
+type PacienteItemProps = {
+  paciente: PacienteModel;
+  onPress: (paciente: PacienteModel) => void;
+};
+
+const CustomPacienteCell: React.FC<PacienteItemProps> = ({ paciente, onPress,  }) => {
+  const uri = 'https://random-image-pepebigotes.vercel.app/api/random-image';
   return (
-    <TouchableOpacity style={CustomPacienteCellStyle.container} onPress={onPress}>
-      <Text style={CustomPacienteCellStyle.nome}>{nome}</Text>
-      <Text style={CustomPacienteCellStyle.data}>{dataNascimento}</Text>
+    <TouchableOpacity key={paciente.getIdPaciente()} onPress={() => onPress(paciente)}>
+      <View style={CustomButtonStyle.item}>
+        <Image source={{ uri }} style={CustomButtonStyle.itemPhoto}/>
+        <View style={CustomButtonStyle.itemText}>
+          <Text style={CustomButtonStyle.itemName}>{paciente.getNome()}</Text>
+          <Text style={CustomButtonStyle.itemEmail}>{paciente.getEmail()}</Text>
+        </View>
+      </View>
     </TouchableOpacity>
   );
-}
+};
+
+export default CustomPacienteCell;
