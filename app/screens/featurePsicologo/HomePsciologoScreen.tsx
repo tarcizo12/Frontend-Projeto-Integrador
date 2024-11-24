@@ -15,17 +15,11 @@ const MOCK_PACIENTES: PacienteModel[] = PacienteMockFactory.criarListaMockPacien
 
 export default function HomePsciologoScreen() {
   
-
-
-
-
-  
   const Navigation: NavigationProp<RootStackParamList> = useNavigation<NavigationProp<RootStackParamList>>();
   
   const handleDirecionarParaTelaDoPaciente = (props: PacienteInfo): void => {
     Navigation.navigate(ScreenRoutes.PERFIL_PACIENTE_BY_PSCIOLOGO, { pacienteInfo: props });
   };
-
 
   const renderCellsPaciente = (pacientes: PacienteModel[]) => {
     return (

@@ -3,10 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/home/HomeScreen';
 import HomePsciologoScreen from './screens/featurePsicologo/HomePsciologoScreen';
-import PerfilPaciente from './screens/perfil/perfilPaciente';
-import HomePacienteScreen from './screens/featurePaciente/HomePacienteScreen';
+import HomePacienteScreen from './screens/featurePaciente/homeScreen/HomePacienteScreen';
 import ScreenRoutes from '@/constants/ScreenRoutes';
 import { RootStackParamList } from '@/constants/types/RootStackParamList';
+import PerfilPacienteByPsciologoScreen from './screens/featurePaciente/perfil/PerfilPacienteByPsciologoScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -28,7 +28,7 @@ export default function App() {
         <Stack.Screen
           options={{ headerShown: false }}
           name={ScreenRoutes.PERFIL_PACIENTE_BY_PSCIOLOGO}
-          component={PerfilPaciente}
+          component={PerfilPacienteByPsciologoScreen}
         />
         <Stack.Screen
           options={{ headerShown: false }}

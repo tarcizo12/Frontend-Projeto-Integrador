@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView} from 'react-native';
+import { View} from 'react-native';
 import HomeScreenStyle from '@/styles/HomeScreenStyle';
 import CustomText from '@/components/CustomText';
 import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel'; 

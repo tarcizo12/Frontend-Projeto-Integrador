@@ -1,12 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View, Image, Text } from 'react-native';
 import CustomButtonStyle from '@/styles/CustomButtonStyle';
-import { PacienteModel } from '@/constants/models/PacienteModel';
-
-type PacienteItemProps = {
-  paciente: PacienteModel;
-  onPress: (paciente: PacienteModel) => void;
-};
+import { PacienteItemProps } from '@/constants/types/PacienteItemProps';
 
 const CustomPacienteCell: React.FC<PacienteItemProps> = ({ paciente, onPress,  }) => {
   const uri = 'https://random-image-pepebigotes.vercel.app/api/random-image';

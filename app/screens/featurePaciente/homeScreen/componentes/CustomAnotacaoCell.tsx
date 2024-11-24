@@ -1,12 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View, Image, Text } from 'react-native';
 import CustomButtonStyle from '@/styles/CustomButtonStyle';
-import {AnotacaoPacienteModel} from '@/constants/models/AnotacaoPacienteModel';
-
-type AnotacaoItemProps = {
-  anotacao: AnotacaoPacienteModel;
-  onPress: (anotacao: AnotacaoPacienteModel) => void;
-};
+import { AnotacaoItemProps } from '@/constants/types/AnotacaoItemProps';
 
 const CustomAnotacaoCell: React.FC<AnotacaoItemProps> = ({ anotacao, onPress,  }) => {
   return (
