@@ -13,8 +13,8 @@ const CustomAnotacaoCell: React.FC<AnotacaoItemProps> = ({ anotacao, onPress,  }
     <TouchableOpacity key={anotacao.getIdAnotacao()} onPress={() => onPress(anotacao)}>
       <View style={CustomButtonStyle.item}>
         <View style={CustomButtonStyle.itemText}>
-          <Text style={CustomButtonStyle.itemPrimary}>{anotacao.getIdAnotacao()}</Text>
-          <Text style={CustomButtonStyle.itemSecondary}>{anotacao.getDhRegistro().toString()}</Text>
+          <Text style={CustomButtonStyle.itemPrimary}>{anotacao.getDescricao()}</Text>
+          <Text style={CustomButtonStyle.itemSecondary}>{anotacao.getDhRegistro()?.toString()}</Text>
         </View>
       </View>
     </TouchableOpacity>

@@ -20,4 +20,8 @@ export class AnotacaoPacienteMockFactory {
             this.criarMockAnotacao(5, 'Descrição 5', new Date('2023-05-01'), 105, 'Ansioso')
         ];
     }
+
+    public static getAnotacaoPacienteInicialValues(): AnotacaoPacienteModel{
+        return this.criarMockAnotacao(0,'', new Date(), 0, '')
+    }
 }

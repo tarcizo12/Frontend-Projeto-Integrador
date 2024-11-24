@@ -1,14 +1,40 @@
+import { AnotacaoPacienteMockFactory } from "@/constants/mock/AnotacaoPacienteMockFactory";
+import { AnotacaoPacienteModel } from "@/constants/models/AnotacaoPacienteModel";
 import { AnotacaoModalProps } from "@/constants/types/AnotacaoModalProps";
+import { useEffect, useState } from "react";
 import { Modal, View, Text,TextInput, TouchableOpacity , StyleSheet} from "react-native";
 
+const AnotacaoModal = ({ visible, setVisibleFalseModal }: AnotacaoModalProps) =>{
 
-const AnotacaoModal = ({ visible, onClose, inputText, setInputText }: AnotacaoModalProps) =>{
+  const [anotacaoAtual, setAnotacaoAtual] = useState<AnotacaoPacienteModel>(
+    AnotacaoPacienteMockFactory.getAnotacaoPacienteInicialValues()
+  );
+
+  const [descricaoAnotacaoText, setDescricaoAnotacaoText] = useState('');
+
+  const closeModal = () => {
+    clearInputText()
+    setVisibleFalseModal()
+  };
+
+  const clearInputText = (): void => {setDescricaoAnotacaoText('')}
+
+  const handleSaveModal = () =>{
+    
+  };
+  
+  useEffect(()=>{
+    console.log("Valor atual descricaoAntaocao", descricaoAnotacaoText)
+  },[descricaoAnotacaoText])
+
+
+  
     return (
       <Modal
         animationType="slide"
         transparent={true}
         visible={visible}
-        onRequestClose={onClose}
+        onRequestClose={closeModal}
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
@@ -17,14 +43,14 @@ const AnotacaoModal = ({ visible, onClose, inputText, setInputText }: AnotacaoMo
               style={styles.input}
               placeholder="Digite aqui..."
               multiline
-              value={inputText}
-              onChangeText={setInputText}
+              value={descricaoAnotacaoText}
+              onChangeText={setDescricaoAnotacaoText}
             />
             <View style={styles.modalButtons}>
-              <TouchableOpacity style={styles.saveButton} onPress={onClose}>
+              <TouchableOpacity style={styles.saveButton} onPress={handleSaveModal}>
                 <Text style={styles.saveButtonText}>Salvar</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+              <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
                 <Text style={styles.closeButtonText}>Fechar</Text>
               </TouchableOpacity>
             </View>
