@@ -4,12 +4,25 @@ import CustomButtonStyle from '@/styles/CustomButtonStyle';
 import { AnotacaoItemProps } from '@/constants/types/AnotacaoItemProps';
 
 const CustomAnotacaoCell: React.FC<AnotacaoItemProps> = ({ anotacao, onPress,  }) => {
+
+  const formatarDataParaBrasileiro = (data: string): string =>{
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(data)) {
+      return ""
+    }
+  
+    const [ano, mes, dia] = data.split("-");
+  
+    return `${dia}/${mes}/${ano}`;
+  }
+  
+  const dataNoFormatoBrasileiro = formatarDataParaBrasileiro(anotacao.dhRegistro?.toString());
+
   return (
-    <TouchableOpacity key={anotacao.getIdAnotacao()} onPress={() => onPress(anotacao)}>
+    <TouchableOpacity key={anotacao.idAnotacao} onPress={() => onPress(anotacao)}>
       <View style={CustomButtonStyle.item}>
         <View style={CustomButtonStyle.itemText}>
-          <Text style={CustomButtonStyle.itemPrimary}>{anotacao.getDescricao()}</Text>
-          <Text style={CustomButtonStyle.itemSecondary}>{anotacao.getDhRegistro()?.toString()}</Text>
+          <Text style={CustomButtonStyle.itemPrimary}>{anotacao.descricao}</Text>
+          <Text style={CustomButtonStyle.itemSecondary}>{dataNoFormatoBrasileiro}</Text>
         </View>
       </View>
     </TouchableOpacity>

@@ -24,7 +24,7 @@ const AnotacaoModal = ({ visible, setVisibleFalseModal }: AnotacaoModalProps) =>
   };
   
   useEffect(()=>{
-    console.log("Valor atual descricaoAntaocao", descricaoAnotacaoText)
+    //console.log("Valor atual descricaoAntaocao", descricaoAnotacaoText)
   },[descricaoAnotacaoText])
 
 

@@ -7,7 +7,7 @@ const RenderCellsAnotacoes: React.FC<RenderCellsAnotacoesProps> = ({ anotacoes }
       <ScrollView>
         {anotacoes.map((anotacao) => (
           <CustomAnotacaoCell
-            key={anotacao.getIdAnotacao()}
+            key={anotacao.idAnotacao}
             anotacao={anotacao}
             onPress={() => console.log("TODO")}
           />

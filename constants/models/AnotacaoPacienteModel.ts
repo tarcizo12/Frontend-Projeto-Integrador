@@ -19,43 +19,43 @@ export class AnotacaoPacienteModel {
         this._emocaoEstimada = emocaoEstimada;
     }
 
-    public getIdAnotacao(): number {
+    public get idAnotacao(): number {
         return this._idAnotacao;
     }
 
-    public getDescricao(): string {
+    public get descricao(): string {
         return this._descricao;
     }
 
-    public getEmocaoEstimada(): string | null {
+    public get emocaoEstimada(): string | null {
         return this._emocaoEstimada;
     }
 
-    public getDhRegistro(): Date {
+    public get registro(): Date {
         return this._dhRegistro;
     }
 
-    public getFk_idPaciente(): number {
+    public get fk_idPaciente(): number {
         return this._fk_idPaciente;
     }
 
-    public setIdAnotacao(id: number) {
+    public set idAnotacao(id: number) {
         this._idAnotacao = id;
     }
 
-    public setDescricao(descricao: string) {
+    public set descricao(descricao: string) {
         this._descricao = descricao;
     }
 
-    public setEmocaoEstimada(emocaoEstimada: string | null) {
+    public set emocaoEstimada(emocaoEstimada: string | null) {
         this._emocaoEstimada = emocaoEstimada;
     }
 
-    public setDhRegistro(dhRegistro: Date) {
+    public set dhRegistro(dhRegistro: Date) {
         this._dhRegistro = dhRegistro;
     }
 
-    public setFk_idPaciente(fk_idPaciente: number) {
+    public set fk_idPaciente(fk_idPaciente: number) {
         this._fk_idPaciente = fk_idPaciente;
     }
 
