@@ -17,16 +17,14 @@ export default function HomePacienteScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [listaAnotacoesAtual, setListaAnotacoesAtual] = useState<AnotacaoPacienteModel[]>(MOCK_ANOTACOES)
 
-  
-  //const Navigation: NavigationProp<RootStackParamList> = useNavigation<NavigationProp<RootStackParamList>>();
-
-  useEffect(()=>{
+  const atualizaListaAnotacoes = (): void =>{
     AnotacaoProvider.obterListaAnotacoesPaciente(ID_PACIENTE_MOCK).then((res: AnotacaoPacienteModel[])=>{
       console.log("reposta das anotacoes:", res)
       setListaAnotacoesAtual(res)
     })
-  },[])
+  }
 
+  useEffect(()=>{atualizaListaAnotacoes()},[])
 
   return (
     <View style={HomeScreenStyle.container}>
