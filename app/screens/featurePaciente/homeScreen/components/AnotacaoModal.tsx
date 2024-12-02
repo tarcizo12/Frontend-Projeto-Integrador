@@ -23,7 +23,6 @@ const AnotacaoModal = ({ visible, idPaciente ,setVisibleFalseModal  }: AnotacaoM
   const handleSaveModal = () =>{
     const novaAnotacaoSalvar: AnotacaoPacienteModel = AnotacaoPacienteModel.copy(anotacaoAtual)
     complementarInformacoesNovaAnotacao(novaAnotacaoSalvar)
-    console.log("objeto sendo salvo: ", novaAnotacaoSalvar)
     AnotacaoProvider.salvarNovaAnotacao(novaAnotacaoSalvar).finally(()=> closeModal())
   };
 
