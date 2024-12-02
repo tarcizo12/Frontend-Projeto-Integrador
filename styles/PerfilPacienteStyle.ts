@@ -7,6 +7,7 @@ export const PerfilPacienteStyle = StyleSheet.create({
       flex: 1,
       justifyContent: 'flex-start',
       alignItems: 'center',
+      padding: 20,
     },
     profileImage: {
       width: 130,
@@ -23,6 +24,7 @@ export const PerfilPacienteStyle = StyleSheet.create({
     },
     email: {
       fontSize: 18,
+      marginBottom: -150
     },
     reports: {
       flex: 1,
@@ -40,8 +42,10 @@ export const PerfilPacienteStyle = StyleSheet.create({
       height: height * 0.43,
       backgroundColor: '#F6F7FB',
       borderRadius: 10,
+      paddingTop: 20,
       paddingLeft: 10,
       paddingRight: 10,
       paddingBottom: 20,
+      margin: 21,
     },
   })

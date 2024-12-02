@@ -19,7 +19,6 @@ export default function HomePacienteScreen() {
 
   const atualizaListaAnotacoes = (): void =>{
     AnotacaoProvider.obterListaAnotacoesPaciente(ID_PACIENTE_MOCK).then((res: AnotacaoPacienteModel[])=>{
-      console.log("reposta das anotacoes:", res)
       setListaAnotacoesAtual(res)
     })
   }

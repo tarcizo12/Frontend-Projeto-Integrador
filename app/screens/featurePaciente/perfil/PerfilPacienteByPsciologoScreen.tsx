@@ -15,7 +15,6 @@ const PerfilPacienteByPsciologoScreen = () => {
 
   const [anotacoes, setAnotacoes] = useState<AnotacaoPacienteModel[]>(AnotacaoPacienteMockFactory.relatos)
 
-  console.log(pacienteInfo, "informacoes do paciente")
 
   if (!pacienteInfo) {
     return (
@@ -28,7 +27,6 @@ const PerfilPacienteByPsciologoScreen = () => {
   const buscarAnotacoesPacienteAtualSelecioando = (): void =>{
     const { idPaciente } = pacienteInfo
     AnotacaoProvider.obterListaAnotacoesPaciente(idPaciente).then((anotacoes)=>{
-      console.log("anotacoes desse paciente: ", anotacoes)
       setAnotacoes(anotacoes)
     })
   }
