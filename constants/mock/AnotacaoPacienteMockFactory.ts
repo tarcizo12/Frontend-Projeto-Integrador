@@ -25,11 +25,12 @@ export class AnotacaoPacienteMockFactory {
         return this.criarMockAnotacao(0,'', new Date(), 0, '')
     }
 
-    public static relatos =
-        [ { id: 1, date: '2021-09-01', description: 'Paciente relatou que está com dificuldades para dormir.', emotion: 'Triste', emoji: '😢' },
-            { id: 2, date: '2021-09-02', description: 'Paciente relatou que está com dificuldades para dormir.', emotion: 'Triste', emoji: '😢' },
-            { id: 3, date: '2021-09-03', description: 'Paciente relatou que está com dificuldades para dormir.', emotion: 'Triste', emoji: '😢' },
-            { id: 4, date: '2021-09-04', description: 'Paciente relatou que está com dificuldades para dormir.', emotion: 'Triste', emoji: '😢' },
-        ];
+    // Ajustando relatos para retornar AnotacaoPacienteModel[]
+    public static relatos: AnotacaoPacienteModel[] = [
+        this.criarMockAnotacao(1, 'Paciente relatou que está com dificuldades para dormir.', new Date('2021-09-01'), 101, 'Triste'),
+        this.criarMockAnotacao(2, 'Paciente relatou que está com dificuldades para dormir.', new Date('2021-09-02'), 102, 'Triste'),
+        this.criarMockAnotacao(3, 'Paciente relatou que está com dificuldades para dormir.', new Date('2021-09-03'), 103, 'Triste'),
+        this.criarMockAnotacao(4, 'Paciente relatou que está com dificuldades para dormir.', new Date('2021-09-04'), 104, 'Triste'),
+    ];
 
 }

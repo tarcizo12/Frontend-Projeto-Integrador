@@ -6,8 +6,8 @@ import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel'
 import SearchBarPacientes from '@/components/SearchBarPacientes';
 import { AnotacaoPacienteMockFactory } from '@/constants/mock/AnotacaoPacienteMockFactory';
 import AddButton from '@/components/AddButton';
-import AnotacaoModal from './componentes/AnotacaoModal';
-import RenderCellsAnotacoes from './componentes/RenderCellsAnotacoes';
+import AnotacaoModal from './components/AnotacaoModal';
+import RenderCellsAnotacoes from './components/RenderCellsAnotacoes';
 import AnotacaoProvider from '@/app/provider/AnotacaoProvider';
 
 const ID_PACIENTE_MOCK = 1
