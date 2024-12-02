@@ -12,7 +12,7 @@ export default class AnotacaoProvider {
     return await AnotacaoProvider.getRequest<AnotacaoPacienteModel[]>(url);
   }
 
-  static async salvarNovaAnotacao(idPaciente: number, anotacao: AnotacaoPacienteModel): Promise<number> {
+  static async salvarNovaAnotacao(anotacao: AnotacaoPacienteModel): Promise<number> {
     const url = PATHS_API.ANOTACOES.SALVAR_ANOTACAO;
     
     const response = await AnotacaoProvider.postRequest<AnotacaoPacienteModel>(url, anotacao);

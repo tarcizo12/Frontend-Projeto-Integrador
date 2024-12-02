@@ -1,10 +1,11 @@
+import AnotacaoProvider from "@/app/provider/AnotacaoProvider";
 import { AnotacaoPacienteMockFactory } from "@/constants/mock/AnotacaoPacienteMockFactory";
 import { AnotacaoPacienteModel } from "@/constants/models/AnotacaoPacienteModel";
 import { AnotacaoModalProps } from "@/constants/types/AnotacaoModalProps";
 import { useEffect, useState } from "react";
 import { Modal, View, Text,TextInput, TouchableOpacity , StyleSheet} from "react-native";
 
-const AnotacaoModal = ({ visible, setVisibleFalseModal }: AnotacaoModalProps) =>{
+const AnotacaoModal = ({ visible, idPaciente ,setVisibleFalseModal  }: AnotacaoModalProps) =>{
 
   const [anotacaoAtual, setAnotacaoAtual] = useState<AnotacaoPacienteModel>(
     AnotacaoPacienteMockFactory.getAnotacaoPacienteInicialValues()
@@ -20,13 +21,17 @@ const AnotacaoModal = ({ visible, setVisibleFalseModal }: AnotacaoModalProps) =>
   const clearInputText = (): void => {setDescricaoAnotacaoText('')}
 
   const handleSaveModal = () =>{
-    
+    const novaAnotacaoSalvar: AnotacaoPacienteModel = AnotacaoPacienteModel.copy(anotacaoAtual)
+    complementarInformacoesNovaAnotacao(novaAnotacaoSalvar)
+    console.log("objeto sendo salvo: ", novaAnotacaoSalvar)
+    AnotacaoProvider.salvarNovaAnotacao(novaAnotacaoSalvar).finally(()=> closeModal())
   };
-  
-  useEffect(()=>{
-    console.log("Valor atual da anotacao: ", anotacaoAtual)
-  },[descricaoAnotacaoText])
 
+  const complementarInformacoesNovaAnotacao = (novaAnotacaoSalvar: AnotacaoPacienteModel): void=>{
+    novaAnotacaoSalvar._fk_idPaciente = idPaciente
+    novaAnotacaoSalvar.descricao =  descricaoAnotacaoText
+    novaAnotacaoSalvar.dhRegistro =  new Date()
+  }
 
   
     return (

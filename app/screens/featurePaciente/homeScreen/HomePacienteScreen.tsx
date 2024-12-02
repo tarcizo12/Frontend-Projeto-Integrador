@@ -11,11 +11,11 @@ import RenderCellsAnotacoes from './componentes/RenderCellsAnotacoes';
 import AnotacaoProvider from '@/app/provider/AnotacaoProvider';
 
 const ID_PACIENTE_MOCK = 1
-const MOCK_ANOTACOES: AnotacaoPacienteModel[] = AnotacaoPacienteMockFactory.criarListaMockAnotacoes();
+const MOCK_ANOTACOES: AnotacaoPacienteModel[] = AnotacaoPacienteMockFactory.criarListaMockAnotacoes(); //Usar caso precisar mockar dnv 
 
 export default function HomePacienteScreen() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [listaAnotacoesAtual, setListaAnotacoesAtual] = useState<AnotacaoPacienteModel[]>(MOCK_ANOTACOES)
+  const [listaAnotacoesAtual, setListaAnotacoesAtual] = useState<AnotacaoPacienteModel[]>([])
 
   const atualizaListaAnotacoes = (): void =>{
     AnotacaoProvider.obterListaAnotacoesPaciente(ID_PACIENTE_MOCK).then((res: AnotacaoPacienteModel[])=>{
@@ -24,7 +24,7 @@ export default function HomePacienteScreen() {
     })
   }
 
-  useEffect(()=>{atualizaListaAnotacoes()},[])
+  useEffect(()=>{if(!modalVisible){atualizaListaAnotacoes()}},[modalVisible])
 
   return (
     <View style={HomeScreenStyle.container}>
@@ -32,7 +32,7 @@ export default function HomePacienteScreen() {
       <SearchBarPacientes placeholder="Buscar anotação"/>
       <RenderCellsAnotacoes anotacoes={listaAnotacoesAtual}></RenderCellsAnotacoes>
       <AddButton onPress={() => setModalVisible(true)} />
-      <AnotacaoModal visible={modalVisible} setVisibleFalseModal={()=> setModalVisible(false)}/>
+      <AnotacaoModal idPaciente={ID_PACIENTE_MOCK} visible={modalVisible} setVisibleFalseModal={()=> setModalVisible(false)}/>
     </View>
   );
 }

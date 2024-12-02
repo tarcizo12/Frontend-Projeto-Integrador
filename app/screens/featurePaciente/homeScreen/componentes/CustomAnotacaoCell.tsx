@@ -14,7 +14,7 @@ const CustomAnotacaoCell: React.FC<AnotacaoItemProps> = ({ anotacao, onPress,  }
   
     return `${dia}/${mes}/${ano}`;
   }
-  
+  console.log("data registro: ", anotacao.emocaoEstimada)
   const dataNoFormatoBrasileiro = formatarDataParaBrasileiro(anotacao.dhRegistro?.toString());
 
   return (
