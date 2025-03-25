@@ -5,9 +5,9 @@ import { View, Text } from 'react-native';
 
 const RelatoItem = ({anotacao} : RelatoItemProps) => (
     <View style={PerfilPacienteStyle.reportsContainer}>
-      <Text>Data: {StringUtil.formatarDataCompleta(anotacao.dhRegistro.toString())}</Text>
-      <Text>Emoção: {anotacao.emocaoEstimada}</Text>
-      <Text>Descrição: {anotacao.descricao}</Text>
+      <Text style = {{  'fontWeight' : 'bold'}}>Data: {StringUtil.formatarDataCompleta(anotacao.dhRegistro.toString())}</Text>
+      <Text style = {{  'fontWeight' : 'bold'}}>Emoção: {anotacao.emocaoEstimada}</Text>
+      <Text style = {{  'fontWeight' : 'bold'}} >Descrição: {anotacao.descricao}</Text>
     </View>
   );
 

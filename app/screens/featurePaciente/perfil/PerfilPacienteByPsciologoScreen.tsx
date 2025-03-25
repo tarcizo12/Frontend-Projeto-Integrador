@@ -69,7 +69,7 @@ const PerfilPacienteByPsciologoScreen = () => {
   return (
     <ScrollView contentContainerStyle={PerfilPacienteStyle.scrollContainer}>
       <View style={PerfilPacienteStyle.container}>
-        <BackButton /> {/*Remover esse componente na versao final*/}
+      <BackButton /> {/*Remover esse componente na versao final*/}
         <PacienteInfo pacienteInfo={pacienteInfo} />
         <EmocaoPredominanteChart data={emocaoPredominante} />
         <RelatosSection anotacoes={anotacoes} />
@@ -78,12 +78,44 @@ const PerfilPacienteByPsciologoScreen = () => {
   );
 };
 
+export enum EMOCOES {
+  EMPOLGACAO = "Empolgação",
+  EXCITACAO = "Excitação",
+  FELICIDADE = "Felicidade",
+  TRISTEZA = "Tristeza",
+  RAIVA = "Raiva",
+  MEDO = "Medo",
+  SURPRESA = "Surpresa",
+  ENTUSIASMO = "Entusiasmo"
+}
+
+
+const corEmocao: { [key in EMOCOES]: string } = {
+  [EMOCOES.EMPOLGACAO]: '#FF8C00', // Laranja vibrante
+  [EMOCOES.EXCITACAO]: '#32CD32', // Verde limão
+  [EMOCOES.FELICIDADE]: '#FFD700', // Amarelo
+  [EMOCOES.TRISTEZA]: '#1E90FF', // Azul
+  [EMOCOES.RAIVA]: '#FF0000', // Vermelho
+  [EMOCOES.MEDO]: '#808080', // Cinza escuro
+  [EMOCOES.SURPRESA]: '#8A2BE2', // Roxo
+  [EMOCOES.ENTUSIASMO]: '#00CED1', // Azul claro / Turquesa
+};
+
 const EmocaoPredominanteChart = ({ data }: { data: any[] }) => {
+  // Mapeando as emoções para as cores
+  const chartData = data.map(item => ({
+    name: item.name,
+    population: item.population,
+    color: corEmocao[item.name as keyof typeof corEmocao], // Atribuindo a cor correspondente
+    legendFontColor: '#7F7F7F', // Cor do texto da legenda
+    legendFontSize: 15,
+  }));
+
   return (
     <View style={PerfilPacienteStyle.graficoContainer}>
       <Text style={PerfilPacienteStyle.title}>Emoção Predominante</Text>
       <PieChart
-        data={data}
+        data={chartData}
         width={width - 40}
         height={180}
         chartConfig={{
@@ -92,7 +124,7 @@ const EmocaoPredominanteChart = ({ data }: { data: any[] }) => {
           backgroundGradientTo: "#ffdd00",
           decimalPlaces: 2,
           color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          style: { borderRadius: 16 }
+          style: { borderRadius: 16 },
         }}
         accessor="population"
         backgroundColor="transparent"
