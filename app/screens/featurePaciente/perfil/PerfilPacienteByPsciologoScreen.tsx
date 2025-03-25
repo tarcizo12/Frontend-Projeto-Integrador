@@ -8,6 +8,8 @@ import RelatoItem from './componentes/RelatoItem';
 import AnotacaoProvider from '@/app/provider/AnotacaoProvider';
 import { PieChart } from 'react-native-chart-kit';
 import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel';
+import BackButton from '@/common/BackButton';
+
 
 const { width } = Dimensions.get('window');
 
@@ -67,6 +69,7 @@ const PerfilPacienteByPsciologoScreen = () => {
   return (
     <ScrollView contentContainerStyle={PerfilPacienteStyle.scrollContainer}>
       <View style={PerfilPacienteStyle.container}>
+        <BackButton /> {/*Remover esse componente na versao final*/}
         <PacienteInfo pacienteInfo={pacienteInfo} />
         <EmocaoPredominanteChart data={emocaoPredominante} />
         <RelatosSection anotacoes={anotacoes} />

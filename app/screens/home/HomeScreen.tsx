@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import ScreenRoutes from '@/constants/ScreenRoutes';
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/common/CustomButton';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@/constants/types/RootStackParamList';
 

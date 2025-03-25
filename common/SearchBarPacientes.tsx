@@ -17,6 +17,7 @@ export default function SearchBarPacientes({ placeholder }: { placeholder: strin
       backgroundColor: '#ffffff0',
       borderBottomWidth: 0,
       borderTopWidth: 0,    
+      marginBotton: 20
     },
 
     inputStyle: {

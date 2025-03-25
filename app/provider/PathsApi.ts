@@ -1,7 +1,7 @@
 const localHostEmuladoprBasePath = "http://192.168.100.119:3000/"
 const localHostWebBasePath = "http://localhost:3000/"
 
-const currentPathSelected = localHostEmuladoprBasePath
+const currentPathSelected = localHostWebBasePath
 const basePathAnotacoes = "anotacao/"
 const basePathPacientes = "paciente/"
 

@@ -65,19 +65,21 @@ const AnotacaoModal = ({ visible, idPaciente ,setVisibleFalseModal  }: AnotacaoM
   }
 
 
-const styles = StyleSheet.create({
+  const styles = StyleSheet.create({
     modalOverlay: {
       flex: 1,
+      width: '100%',
+      height: '100%',
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'rgba(0,0,0,0.5)',
     },
     modalContent: {
-      width: '80%',
+      width: '90%', // Usa mais da tela para evitar problemas de tamanho
+      maxHeight: '80%', // Evita que o modal ultrapasse a tela
       backgroundColor: '#FFFFFF',
       borderRadius: 10,
       padding: 20,
-      alignItems: 'center',
       elevation: 10,
     },
     modalTitle: {
@@ -102,14 +104,14 @@ const styles = StyleSheet.create({
       width: '100%',
     },
     saveButton: {
-      backgroundColor: '#6200EE',
+      backgroundColor: '#6495ED',
       borderRadius: 10,
       padding: 10,
       flex: 1,
       marginRight: 10,
     },
     saveButtonText: {
-      color: '#FFFFFF',
+      color: 'black',
       textAlign: 'center',
       fontWeight: 'bold',
     },
@@ -124,7 +126,8 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontWeight: 'bold',
     },
-});
+  });
+  
 
   
 export default AnotacaoModal;

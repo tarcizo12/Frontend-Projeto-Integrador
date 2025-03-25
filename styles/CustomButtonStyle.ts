@@ -5,18 +5,27 @@ const { width } = Dimensions.get('window');
 const CustomButtonStyle = StyleSheet.create({
   item: {
     flexDirection: 'row',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E5E5',
     alignItems: 'center',
-    width: width - 20, // 20 px de margem horizontal
+    backgroundColor: 'white', // Fundo branco para contraste com #6495ED
+    padding: 12,
+    marginVertical: 6,
+    borderRadius: 12, // Bordas arredondadas para um visual moderno
+    width: width - 30, // Mantém margem lateral para melhor espaçamento
+    alignSelf: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3, // Sombra para destacar os itens
   },
 
   itemPhoto: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 10,
+    width: 55,
+    height: 55,
+    borderRadius: 30,
+    marginRight: 12,
+    borderWidth: 2,
+    borderColor: '#6495ED', // Borda para destacar a foto
   },
 
   itemText: {
@@ -26,14 +35,15 @@ const CustomButtonStyle = StyleSheet.create({
   },
 
   itemPrimary: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
+    marginBottom: 2,
   },
 
   itemSecondary: {
     fontSize: 14,
-    color: '#666',
+    color: '#555',
   },
 
   itemInfo: {
