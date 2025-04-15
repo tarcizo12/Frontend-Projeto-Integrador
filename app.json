@@ -9,7 +9,8 @@
     "entryPoint": "./app/App.tsx",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.FrontendProjetoIntegrador"
     },
     "android": {
       "adaptiveIcon": {

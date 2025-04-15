@@ -1,33 +1,42 @@
 import React from 'react';
-import { Dimensions, TouchableOpacity, StyleSheet } from 'react-native';
-import CustomText from '@/common/CustomText';
+import { View, TextInput, StyleSheet, Text, TextInputProps } from 'react-native';
 
-export default function CustomButton({ label, func }: { label: string; func: () => void }) {
+interface CustomInputProps extends TextInputProps {
+  label: string;
+}
+
+export default function CustomInput({ label, secureTextEntry ,...rest }: CustomInputProps) {
   return (
-    <TouchableOpacity style={styles.button} onPress={func}>
-      <CustomText label={label}/>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      <Text style={styles.label}>{label}</Text>
+      <TextInput
+        style={styles.input}
+        placeholderTextColor="#888"
+        secureTextEntry={secureTextEntry}
+        {...rest}
+      />
+    </View>
   );
 }
 
-const { width } = Dimensions.get('window'); // Obtém a largura da tela
-
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#6495ed', 
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5, 
-    marginVertical: 10, 
-    width: width * 0.5, 
-    alignSelf: 'center', 
+  container: {
+    marginVertical: 10,
+    width: '80%',
+    alignSelf: 'center',
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 6,
+    color: '#333',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontSize: 16,
+    backgroundColor: '#fff',
   },
 });
-

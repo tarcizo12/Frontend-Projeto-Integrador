@@ -36,7 +36,7 @@ export default class AnotacaoProvider {
       const response: AxiosResponse<T> = await axios.get(url);
       return response.data;
     } catch (error) {
-      console.error('Erro ao realizar GET:', error);
+      console.error('Erro ao realizar GET: ' + url, error);
       throw error;
     }
   }
