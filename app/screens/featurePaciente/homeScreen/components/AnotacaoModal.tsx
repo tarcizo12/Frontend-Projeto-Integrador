@@ -42,10 +42,10 @@ const AnotacaoModal = ({ visible, idPaciente ,setVisibleFalseModal  }: AnotacaoM
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>O que você está pensando no momento?</Text>
+            <Text style={styles.modalTitle}>Como você está se sentindo?</Text>
             <TextInput
               style={styles.input}
-              placeholder="Digite aqui..."
+              placeholder="Escreva aqui como foi seu dia, como se sentiu, ou qualquer coisa que queira lembrar..."
               multiline
               value={descricaoAnotacaoText}
               onChangeText={setDescricaoAnotacaoText}
