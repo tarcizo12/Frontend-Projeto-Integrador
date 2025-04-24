@@ -2,43 +2,25 @@
   "expo": {
     "name": "Frontend-Projeto-Integrador",
     "slug": "Frontend-Projeto-Integrador",
-    "newArchEnabled": true,
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "myapp",
-    "entryPoint": "./app/App.tsx",
     "userInterfaceStyle": "automatic",
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.FrontendProjetoIntegrador",
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
-      }
-    },
-    "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#ffffff",
-        "newArchEnabled": true
-      },
-      "package": "com.anonymous.FrontendProjetoIntegrador"
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static"
-    },
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "plugins": [
       "expo-router"
     ],
     "experiments": {
       "typedRoutes": true
     },
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "b13c095f-965e-47f4-b61b-3d024bf8c90c"
-      }
+    "web": {
+      "bundler": "metro"
+    },
+    "ios": {
+      "bundleIdentifier": "com.brunoppneves.Frontend-Projeto-Integrador"
     }
   }
 }
