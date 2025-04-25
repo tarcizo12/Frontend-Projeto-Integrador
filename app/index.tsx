@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/home/HomeScreen';
 import HomePsciologoScreen from './screens/featurePsicologo/HomePsciologoScreen';
 import HomePacienteScreen from './screens/featurePaciente/homeScreen/HomePacienteScreen';
+import CalendarioPaciente from './screens/featurePaciente/calendarioPaciente/CalendarioPaciente';
+import RegistrosPaciente from './screens/featurePaciente/registrosPaciente/RegistrosPaciente';
 import ScreenRoutes from '@/constants/ScreenRoutes';
 import { RootStackParamList } from '@/constants/types/RootStackParamList';
 import PerfilPacienteByPsciologoScreen from './screens/featurePaciente/perfil/PerfilPacienteByPsciologoScreen';
@@ -34,6 +36,16 @@ export default function App() {
           options={{ headerShown: false }}
           name={ScreenRoutes.HOME_PACIENTE_SCREEN}
           component={HomePacienteScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={ScreenRoutes.CALENDARIO_PACIENTE}
+          component={CalendarioPaciente}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={ScreenRoutes.REGISTROS_PACIENTE}
+          component={RegistrosPaciente}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -19,6 +19,7 @@ import Icon2 from '@/icons/notes.png';
 import Icon3 from '@/icons/add.png';
 import Icon4 from '@/icons/person.png';
 import BackButton from '@/common/BackButton';
+import Sidemenu from '../../Sidemenu';
 
 const ID_PACIENTE_MOCK = 1;
 const MOCK_ANOTACOES: AnotacaoPacienteModel[] =
@@ -57,9 +58,7 @@ export default function HomePacienteScreen() {
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={() => {}} style={styles.backButton}>
-            <Text style={styles.backButtonText}>{'<'} </Text>
-          </TouchableOpacity>
+
           <Text style={styles.headerTitle}>Nova anotação</Text>
         </View>
 
@@ -76,34 +75,6 @@ export default function HomePacienteScreen() {
             <Text style={{ fontSize: 16, marginLeft: 16, marginBottom: 8 }}>
               Como você está se sentindo?
             </Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 10 }}>
-  {['😊', '😢', '😠', '😴', '😰'].map((emoji) => {
-    const selecionado = emoji === emojiSelecionado;
-    return (
-      <TouchableOpacity
-        key={emoji}
-        onPress={() => {
-          if (selecionado) {
-            setEmojiSelecionado(null);
-          } else {
-            setEmojiSelecionado(emoji);
-          }
-        }}
-        style={{
-          margin: 6,
-          padding: 6,
-          borderRadius: 8,
-          backgroundColor: selecionado ? '#a0ff7d' : '#eee',
-          borderWidth: selecionado ? 2 : 1,
-          borderColor: selecionado ? '#20A69F' : '#ccc',
-        }}
-      >
-        <Text style={{ fontSize: 24 }}>{emoji}</Text>
-      </TouchableOpacity>
-    );
-  })}
-</View>
-
 
             <View>
               <TextInput
@@ -132,20 +103,7 @@ export default function HomePacienteScreen() {
         />
       </ScrollView>
 
-      <View style={styles.bottomMenu}>
-        <TouchableOpacity style={styles.menuOption}>
-          <Image source={Icon1} style={styles.menuImage} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuOption}>
-          <Image source={Icon2} style={styles.menuImage} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuOption}>
-          <Image source={Icon3} style={styles.menuImage} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuOption}>
-          <Image source={Icon4} style={styles.menuImage} />
-        </TouchableOpacity>
-      </View>
+      <Sidemenu />
     </View>
   );
 }
@@ -240,6 +198,6 @@ const styles = StyleSheet.create({
     height: 150,
     padding: 10,
     borderRadius: 8,
-    fontSize: 16,
+    fontSize: 14,
   },
 });
