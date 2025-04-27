@@ -21,6 +21,9 @@
     },
     "ios": {
       "bundleIdentifier": "com.brunoppneves.Frontend-Projeto-Integrador"
+    },
+    "android": {
+      "package": "com.brunoppneves.FrontendProjetoIntegrador"
     }
   }
 }

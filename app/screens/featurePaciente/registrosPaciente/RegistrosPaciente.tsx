@@ -60,7 +60,7 @@ const RegistrosPaciente = () => {
     <View style={styles.container}>
       <View style={styles.titleText}>
         <Text style={{ color: '#fff', fontSize: 18, textAlign: 'center', fontWeight: 'bold' }}>
-          Registros do Paciente
+          Minhas Anotações
         </Text>
       </View>
       <View style={styles.backgroundRegistro}>
