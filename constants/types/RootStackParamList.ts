@@ -10,4 +10,5 @@ export type RootStackParamList = {
   [ScreenRoutes.REGISTROS_PACIENTE]: undefined;
   [ScreenRoutes.CREATE_USER]: undefined;
   [ScreenRoutes.FORGOT_MY_PASSWORD]: undefined;
+  [ScreenRoutes.PERFIL_PACIENTE]: undefined;
 };

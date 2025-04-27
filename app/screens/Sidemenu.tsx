@@ -24,6 +24,10 @@ const Sidemenu = () => {
     navigation.navigate(ScreenRoutes.HOME_PACIENTE_SCREEN);
   };
 
+  const handlePerfil = async (): Promise<void> => {
+    navigation.navigate(ScreenRoutes.PERFIL_PACIENTE);
+  };
+
   return (
     <View style={styles.bottomMenu}>
       {/* <TouchableOpacity style={styles.menuOption} onPress={() => handleCalendario()}>
@@ -35,7 +39,7 @@ const Sidemenu = () => {
       <TouchableOpacity style={styles.menuOption} onPress={() => handleAddRegistros()}>
         <Image source={Icon3} style={styles.menuImage} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.menuOption}>
+      <TouchableOpacity style={styles.menuOption} onPress={() => handlePerfil()}>
         <Image source={Icon4} style={styles.menuImage} />
       </TouchableOpacity>
     </View>
