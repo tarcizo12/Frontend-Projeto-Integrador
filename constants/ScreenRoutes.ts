@@ -6,6 +6,7 @@ enum ScreenRoutes{
     CALENDARIO_PACIENTE = "CalendarioPaciente",
     REGISTROS_PACIENTE = "RegistrosPaciente",
     CREATE_USER = "CreateUser",
+    FORGOT_MY_PASSWORD = "ForgotMyPassword",
 }
 
 export default ScreenRoutes;

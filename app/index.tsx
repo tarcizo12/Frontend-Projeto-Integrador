@@ -10,6 +10,7 @@ import ScreenRoutes from '@/constants/ScreenRoutes';
 import { RootStackParamList } from '@/constants/types/RootStackParamList';
 import PerfilPacienteByPsciologoScreen from './screens/featurePaciente/perfil/PerfilPacienteByPsciologoScreen';
 import CreateUser from './screens/createUser/CreateUser';
+import ForgotMyPass from './screens/forgotMyPass/ForgotMyPass';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -52,6 +53,11 @@ export default function App() {
           options={{ headerShown: false }}
           name={ScreenRoutes.CREATE_USER}
           component={CreateUser}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={ScreenRoutes.FORGOT_MY_PASSWORD}
+          component={ForgotMyPass}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -55,6 +55,14 @@ export default function HomeScreen() {
     navigation.navigate(ScreenRoutes.CREATE_USER);
   }
 
+  const handleDirecionarParaTelaDeRecuperarSenha = async (): void => {
+    navigation.navigate(ScreenRoutes.FORGOT_MY_PASSWORD);
+  }
+
+  const handleVoltarParaTelaDeLogin = async (): void => {
+    navigation.navigate(ScreenRoutes.HOME_SCREEN);
+  }
+
   return (
     <View style={stylesView.external}>
       <View style={stylesView.internal}>
@@ -90,7 +98,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
 
           <View style={stylesView.footer}>
-          <TouchableOpacity onPress={() => alert("Redirecionar para a tela de recuperação de senha")}>
+          <TouchableOpacity onPress={handleDirecionarParaTelaDeRecuperarSenha}>
             <Text style={stylesView.linkText}>Esqueci minha senha</Text>
           </TouchableOpacity>
         </View>

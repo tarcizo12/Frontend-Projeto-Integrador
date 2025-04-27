@@ -9,4 +9,5 @@ export type RootStackParamList = {
   [ScreenRoutes.CALENDARIO_PACIENTE]: undefined;
   [ScreenRoutes.REGISTROS_PACIENTE]: undefined;
   [ScreenRoutes.CREATE_USER]: undefined;
+  [ScreenRoutes.FORGOT_MY_PASSWORD]: undefined;
 };
