@@ -9,6 +9,7 @@ import RegistrosPaciente from './screens/featurePaciente/registrosPaciente/Regis
 import ScreenRoutes from '@/constants/ScreenRoutes';
 import { RootStackParamList } from '@/constants/types/RootStackParamList';
 import PerfilPacienteByPsciologoScreen from './screens/featurePaciente/perfil/PerfilPacienteByPsciologoScreen';
+import CreateUser from './screens/createUser/CreateUser';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -46,6 +47,11 @@ export default function App() {
           options={{ headerShown: false }}
           name={ScreenRoutes.REGISTROS_PACIENTE}
           component={RegistrosPaciente}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name={ScreenRoutes.CREATE_USER}
+          component={CreateUser}
         />
       </Stack.Navigator>
     </NavigationContainer>

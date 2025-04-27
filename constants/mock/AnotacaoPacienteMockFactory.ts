@@ -1,6 +1,7 @@
 import { AnotacaoPacienteModel } from '../models//AnotacaoPacienteModel';
 
 export class AnotacaoPacienteMockFactory {
+    
     private static criarMockAnotacao(
         idAnotacao: number,
         descricao: string,

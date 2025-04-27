@@ -26,9 +26,9 @@ const Sidemenu = () => {
 
   return (
     <View style={styles.bottomMenu}>
-      <TouchableOpacity style={styles.menuOption} onPress={() => handleCalendario()}>
+      {/* <TouchableOpacity style={styles.menuOption} onPress={() => handleCalendario()}>
         <Image source={Icon1} style={styles.menuImage} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity style={styles.menuOption} onPress={() => handleRegistros()}>
         <Image source={Icon2} style={styles.menuImage} />
       </TouchableOpacity>

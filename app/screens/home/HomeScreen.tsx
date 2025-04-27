@@ -51,6 +51,10 @@ export default function HomeScreen() {
     navigation.navigate(ScreenRoutes.HOME_PACIENTE_SCREEN);
   };
 
+  const handleDirecionarParaTelaDeCriarUsuario = async (): void => {
+    navigation.navigate(ScreenRoutes.CREATE_USER);
+  }
+
   return (
     <View style={stylesView.external}>
       <View style={stylesView.internal}>
@@ -81,7 +85,7 @@ export default function HomeScreen() {
 
         
 
-          <TouchableOpacity onPress={() => alert("Redirecionar para a tela de criação de conta")}>
+          <TouchableOpacity onPress={ handleDirecionarParaTelaDeCriarUsuario}>
             <Text style={stylesView.linkText}>Criar conta</Text>
           </TouchableOpacity>
 
