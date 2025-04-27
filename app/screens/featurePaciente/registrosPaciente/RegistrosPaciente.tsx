@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
 import Sidemenu from '../../Sidemenu';
 import ContainerRegistro from './components/ContainerRegistro';
 
@@ -59,7 +59,7 @@ const RegistrosPaciente = () => {
   return (
     <View style={styles.container}>
       <View style={styles.titleText}>
-        <Text style={{ color: '#fff', fontSize: 18, textAlign: 'center'}}>
+        <Text style={{ color: '#fff', fontSize: 18, textAlign: 'center', fontWeight: 'bold' }}>
           Registros do Paciente
         </Text>
       </View>
@@ -86,16 +86,18 @@ const RegistrosPaciente = () => {
   );
 };
 
+const widthScreen = Dimensions.get('window').width;
+const heightScreen = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      paddingTop: 25,
     },
     titleText: {
-      height: 50,
-      width: '100%',
-      backgroundColor: '#20A69F',
+      height: heightScreen * 0.07,
+      width: widthScreen,
+      backgroundColor: '#20a69f',
       justifyContent: 'center',
       alignItems: "center"
     },
