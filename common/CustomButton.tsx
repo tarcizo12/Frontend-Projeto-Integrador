@@ -3,6 +3,7 @@ import { View, TextInput, StyleSheet, Text, TextInputProps } from 'react-native'
 
 interface CustomInputProps extends TextInputProps {
   label: string;
+  func: any
 }
 
 export default function CustomInput({ label, secureTextEntry ,...rest }: CustomInputProps) {
