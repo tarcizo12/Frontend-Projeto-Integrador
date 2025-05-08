@@ -9,15 +9,16 @@ import {
   Dimensions,
 } from 'react-native';
 import ScreenRoutes from '@/constants/ScreenRoutes';
-import CustomInput from '@/common/CustomButton'; // Componente CustomInput
+import CustomInput from '@/common/CustomButton'; 
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@/constants/types/RootStackParamList';
 import logo from '../../../icons/logo_tcc.png';
-import * as yup from 'yup'; // Importando o yup
+import * as yup from 'yup'; 
+import LoginProvider from '@/app/provider/LoginProvider';
 
 const screenHeight = Dimensions.get('window').height;
 
-// Definir o schema de validação do email com o yup
+
 const emailSchema = yup.object().shape({
   email: yup.string().email('Email inválido').required('O email é obrigatório'),
 });
@@ -28,10 +29,12 @@ export default function HomeScreen() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
-  const handleDirecionarParaTelaPaciente = async (): Promise<void> => {
-    // Validação desativada por enquanto
-    navigation.navigate(ScreenRoutes.HOME_PACIENTE_SCREEN);
+  const handleDirecionarParaAplicaoLogada = async (): Promise<void> => {
+    const resultadoUsuarioLogado = await LoginProvider.realizarLogin({ email, senha });
+      
+    console.log("Usuario logado ", resultadoUsuarioLogado);
   };
+  
 
   const handleDirecionarParaTelaDeCriarUsuario = (): void => {
     navigation.navigate(ScreenRoutes.CREATE_USER);
@@ -68,7 +71,7 @@ export default function HomeScreen() {
           secureTextEntry func={undefined}        
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleDirecionarParaTelaPaciente}>
+        <TouchableOpacity style={styles.button} onPress={handleDirecionarParaAplicaoLogada}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
