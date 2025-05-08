@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,17 @@ import Sidemenu from '../../Sidemenu';
 import ContainerRegistro from './components/ContainerRegistro';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { RelatoModal } from './components/RelatoModal';
+import { RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from '@/constants/types/RootStackParamList';
+import ScreenRoutes from '@/constants/ScreenRoutes';
+import { UsuarioLogado } from '@/constants/models/UsuarioLogado';
+import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel';
+import AnotacaoProvider from '@/app/provider/AnotacaoProvider';
+import { PacienteModel } from '@/constants/models/PacienteModel';
+
+type Props = {
+  route: RouteProp<RootStackParamList, typeof ScreenRoutes.REGISTROS_PACIENTE>;
+};
 
 const registrosExemplo = [
   {
@@ -89,10 +100,13 @@ const validarIntervaloDatas = (dataInicioTexto: string, dataFimTexto: string) =>
   if (dataFim < dataInicio) {
     return { valido: false, mensagem: 'Data final é menor que a data inicial' };
   }
-  return { valido: true };
+  return { valido: true , mensagem : 'Valido'};
 };
 
-const RegistrosPaciente = () => {
+const RegistrosPaciente: React.FC<Props> = ({ route }) => {
+  // Extraia os parâmetros da rota
+  const { usuario } = route.params;
+
   const [modalVisible, setModalVisible] = useState(false);
   const [visualizacao, setVisualizacao] = useState({
     visualizado: false,
@@ -102,7 +116,8 @@ const RegistrosPaciente = () => {
   const [dataInicial, setDataInicial] = useState('');
   const [dataFinal, setDataFinal] = useState('');
   const [modalRelatoVisivel, setModalRelatoVisivel] = useState(false);
-  const [registroSelecionado, setRegistroSelecionado] = useState<any>(null);
+  const [registroSelecionado, setRegistroSelecionado] = useState<AnotacaoPacienteModel | null>(null);
+  const [anotacoesPaciente, setAnotacoesPaciente] = useState<AnotacaoPacienteModel[]>([])
 
   const toggleVisualizacao = (tipo: keyof typeof visualizacao) => {
     setVisualizacao((prev) => ({
@@ -144,10 +159,23 @@ const RegistrosPaciente = () => {
     setModalVisible(false);
   };
 
-  const abrirRelato = (registro: any) => {
+  const abrirRelato = (registro: AnotacaoPacienteModel) => {
     setRegistroSelecionado(registro);
     setModalRelatoVisivel(true);
   };
+
+  const carregarDadosUsuario = async (usuarioPaciente: PacienteModel) =>{
+    const registrosAnotacoes: AnotacaoPacienteModel[] = await AnotacaoProvider.obterListaAnotacoesPaciente(usuarioPaciente.idPaciente)
+
+    return registrosAnotacoes;
+  }
+
+  useEffect(()=>{
+    carregarDadosUsuario(usuario).then((res: AnotacaoPacienteModel[])=>{
+      console.log("Resultado das anotacoes consultadas: ", res)
+      setAnotacoesPaciente(res)
+    })
+  }, [usuario])
 
   return (
     <View style={styles.container}>
@@ -238,21 +266,22 @@ const RegistrosPaciente = () => {
       <View style={styles.backgroundRegistro}>
         <FlatList
           contentContainerStyle={styles.scrollContainer}
-          data={registrosExemplo}
-          keyExtractor={(item) => item.id}
+          data={anotacoesPaciente}
+          keyExtractor={(item) => String(item.idAnotacao)} 
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => abrirRelato(item)}>
               <ContainerRegistro
-                title={item.title}
-                icon={item.icon}
-                categories={item.categories}
-                status={item.status}
+                title={item.titulo}
+                categories={item.emocaoEstimada === null ? "" : item.emocaoEstimada}
+                status={item.isVisualizada}
+                date={item.dhRegistro.toString()}
               />
             </TouchableOpacity>
           )}
           showsVerticalScrollIndicator={false}
         />
       </View>
+
 
       <View style={styles.menu}>
         <Sidemenu />

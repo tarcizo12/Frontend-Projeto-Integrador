@@ -15,6 +15,9 @@ import { RootStackParamList } from '@/constants/types/RootStackParamList';
 import logo from '../../../icons/logo_tcc.png';
 import * as yup from 'yup'; 
 import LoginProvider from '@/app/provider/LoginProvider';
+import { UsuarioLogado } from '@/constants/models/UsuarioLogado';
+import { PacienteModel } from '@/constants/models/PacienteModel';
+import { PsicologoModel } from '@/constants/models/PsicologoModel';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -30,9 +33,24 @@ export default function HomeScreen() {
   const [senha, setSenha] = useState('');
 
   const handleDirecionarParaAplicaoLogada = async (): Promise<void> => {
-    const resultadoUsuarioLogado = await LoginProvider.realizarLogin({ email, senha });
+    const resultadoUsuarioLogado: UsuarioLogado = await LoginProvider.realizarLogin({ email, senha });
       
-    console.log("Usuario logado ", resultadoUsuarioLogado);
+    console.log("Usuario Logado com sucesso, informacoes: \n");
+    console.log(`Nome: ${resultadoUsuarioLogado.usuarioLogadoData?.nome}`);
+    console.log(`Email: ${resultadoUsuarioLogado.usuarioLogadoData?.email}`);
+    console.log(`CPF: ${resultadoUsuarioLogado.usuarioLogadoData?.cpf}`);
+
+    if(resultadoUsuarioLogado.isPaciente){
+      const paciente = resultadoUsuarioLogado.usuarioLogadoData as PacienteModel;
+
+      navigation.navigate(ScreenRoutes.REGISTROS_PACIENTE, { usuario: paciente });
+    }
+
+    if(resultadoUsuarioLogado.isPsicologo){
+      const psicologo = resultadoUsuarioLogado.usuarioLogadoData as PsicologoModel;
+
+      navigation.navigate(ScreenRoutes.HOME_PSICOLOGO_SCREEN);
+    }
   };
   
 
@@ -78,16 +96,22 @@ export default function HomeScreen() {
         <TouchableOpacity onPress={handleDirecionarParaTelaDeCriarUsuario}>
           <Text style={styles.linkText}>Criar conta</Text>
         </TouchableOpacity>
-
-        <View style={styles.footer}>
-          <TouchableOpacity onPress={handleDirecionarParaTelaDeRecuperarSenha}>
-            <Text style={styles.linkText}>Esqueci minha senha</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </View>
   );
+
+  const ComponenteEsqueciASenha = () => {
+    return (
+          <View style={styles.footer}>
+            <TouchableOpacity onPress={handleDirecionarParaTelaDeRecuperarSenha}>
+              <Text style={styles.linkText}>Esqueci minha senha</Text>
+            </TouchableOpacity>
+          </View>
+    )
+  }
 }
+
+
 
 const styles = StyleSheet.create({
   external: {

@@ -1,18 +1,12 @@
 // components/RelatoModal.tsx
+import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel';
 import React from 'react';
 import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 interface RelatoModalProps {
   visivel: boolean;
   fechar: () => void;
-  registro: {
-    id: string;
-    title: string;
-    icon: string;
-    categories: string[];
-    status: string;
-    texto: string;
-  } | null;
+  registro: AnotacaoPacienteModel | null
 }
 
 export const RelatoModal: React.FC<RelatoModalProps> = ({ visivel, fechar, registro }) => {
@@ -25,13 +19,11 @@ export const RelatoModal: React.FC<RelatoModalProps> = ({ visivel, fechar, regis
           <TouchableOpacity onPress={fechar} style={styles.closeButton}>
             <Text style={styles.closeText}>Fechar</Text>
           </TouchableOpacity>
-          <Text style={styles.title}>{registro.title} {registro.icon}</Text>
-          <Text style={styles.status}>{registro.status}</Text>
-          <Text style={styles.texto}>{registro.texto}</Text>
+          <Text style={styles.title}>{registro.titulo} </Text>
+          <Text style={styles.status}>{registro.isVisualizada}</Text>
+          <Text style={styles.texto}>{registro.descricao}</Text>
           <View style={styles.categoriesContainer}>
-            {registro.categories.map((cat) => (
-              <Text key={cat} style={styles.category}>{cat}</Text>
-            ))}
+            <Text style={styles.category}>{registro.emocaoEstimada}</Text>
           </View>
         </View>
       </View>

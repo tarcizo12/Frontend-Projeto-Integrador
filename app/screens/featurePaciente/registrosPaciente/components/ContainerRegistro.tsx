@@ -3,10 +3,10 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 
 type ContainerRegistroProps = {
   title: string;
-  icon: string;
+  icon?: string;
   date?: string;
-  categories: string[];
-  status: string;
+  categories: string;
+  status: boolean;
 };
 
 const ContainerRegistro: React.FC<ContainerRegistroProps> = ({
@@ -20,97 +20,109 @@ const ContainerRegistro: React.FC<ContainerRegistroProps> = ({
     <View style={styles.containerRegistro}>
       <View style={styles.titleRegisterContainer}>
         <Text style={styles.titleTextContainer}>{title}</Text>
-        <Text>{icon}</Text>
+        {icon && <Text>{icon}</Text>}
       </View>
 
       <View style={styles.dateRegisterContainer}>
-        <Text style={styles.dateTextContainer}>{date || new Date().toLocaleDateString()}</Text>
+        <Text style={styles.dateTextContainer}>
+          {date || new Date().toLocaleDateString('pt-BR')}
+        </Text>
       </View>
 
       <View style={styles.categoriesRegisterContainer}>
-        {categories.map((cat, index) => (
-          <View style={styles.textCategoriesRegisterContainer}>
-            <Text key={index} style={styles.text}>
-              {cat}
-              {index !== categories.length - 1}
-            </Text>
-          </View>
+        {categories.split(',').map((category, index) => (
+          <Text key={index} style={styles.textCategoriesRegisterContainer}>
+            {category.trim()}
+          </Text>
         ))}
       </View>
 
       <View style={styles.statusRegisterContainer}>
-        <Text>{status}</Text>
+        <Text style={[
+          styles.statusText,
+          status ? styles.statusActive : styles.statusInactive
+        ]}>
+          {status ? 'Visto' : 'Não visto'}
+        </Text>
       </View>
     </View>
   );
 };
 
-const widthScreen = Dimensions.get('screen').width;
-const heightScreen = Dimensions.get('screen').height;
-
-const widthWindow = Dimensions.get('window').width;
-const heightWindow = Dimensions.get('window').height;
+const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
+const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   containerRegistro: {
-    marginTop: 10,
-    marginBottom: 10,
+    marginVertical: 10,
     alignItems: 'flex-start',
-    width: widthScreen * 0.9,
-    height: heightScreen * 0.18,
+    width: screenWidth * 0.9,
+    height: screenHeight * 0.18,
     backgroundColor: '#ffffff',
     borderRadius: 10,
     padding: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   titleRegisterContainer: {
-    width: widthWindow * 0.83,
-    height: heightWindow * 0.04,
-    backgroundColor: '#ffffff',
+    width: windowWidth * 0.83,
+    height: windowHeight * 0.04,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 5,
   },
   titleTextContainer: {
-    fontSize: 16
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
   },
   dateRegisterContainer: {
-    marginTop: 5,
-    marginBottom: 5,
-    backgroundColor: '#ffffff',
+    marginVertical: 5,
   },
-  dateTextContainer:{
-    fontSize: 14
+  dateTextContainer: {
+    fontSize: 14,
+    color: '#666',
   },
   categoriesRegisterContainer: {
-    width: widthScreen * 0.83,
-    height: heightWindow * 0.03,
+    width: screenWidth * 0.83,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    backgroundColor: '#ffffff',
-    marginTop: 5,
-    marginBottom: 5,
+    marginVertical: 5,
   },
   textCategoriesRegisterContainer: {
-    alignSelf: 'center', 
-    justifyContent: "center",
-    height: heightWindow * 0.027,
-    paddingHorizontal: 10,
-    backgroundColor: '#20A69F',
-    marginRight: 5,
-    borderRadius: 15,
-  },
-  statusRegisterContainer: {
-    alignItems: 'flex-end',
-    width: widthScreen * 0.83,
-    backgroundColor: '#ffffff',
-    marginTop: 5,
-  },
-  text: {
     fontSize: 12,
     color: '#fff',
-    alignSelf: "center",
-    justifyContent: "center",
+    backgroundColor: '#20A69F',
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 15,
+    marginRight: 5,
+    marginBottom: 5,
+    overflow: 'hidden',
+  },
+  statusRegisterContainer: {
+    alignSelf: 'flex-end',
+    width: screenWidth * 0.83,
+    marginTop: 5,
+  },
+  statusText: {
+    fontSize: 14,
+    fontWeight: '500',
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 12,
+  },
+  statusActive: {
+    backgroundColor: '#4CAF50',
+    color: '#fff',
+  },
+  statusInactive: {
+    backgroundColor: '#F44336',
+    color: '#fff',
   },
 });
 
