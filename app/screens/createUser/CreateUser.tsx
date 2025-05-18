@@ -28,6 +28,7 @@ export default function CreateUser() {
   const [isPsychologist, setIsPsychologist] = useState(false);
   const [crp, setCrp] = useState('');
   const [codigoPsicologo, setCodigoPsicologo] = useState('');
+  const [cpf, setCpf] = useState('');
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const navigation: NavigationProp<RootStackParamList> = useNavigation();
@@ -67,6 +68,7 @@ export default function CreateUser() {
       name,
       email,
       password,
+      cpf,
       phone,
       birthDate: formatDate(birthDate),
       isPsychologist,
@@ -95,6 +97,7 @@ export default function CreateUser() {
       <TextInput style={styles.input} placeholder="Nome" value={name} onChangeText={setName} />
       <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" />
       <TextInput style={styles.input} placeholder="Senha" value={password} onChangeText={setPassword} secureTextEntry />
+      <TextInput style={styles.input} placeholder="CPF" value={cpf} onChangeText={setCpf} />
       <TextInput style={styles.input} placeholder="Telefone (opcional)" value={phone} onChangeText={setPhone} keyboardType="phone-pad" />
 
       <Pressable onPress={() => setShowDatePicker(true)} style={styles.datePickerButton}>
