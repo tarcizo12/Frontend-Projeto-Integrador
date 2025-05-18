@@ -15,7 +15,6 @@ import {
 import Sidemenu from '../../Sidemenu';
 import ContainerRegistro from './components/ContainerRegistro';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { RelatoModal } from './components/RelatoModal';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '@/constants/types/RootStackParamList';
 import ScreenRoutes from '@/constants/ScreenRoutes';
@@ -23,6 +22,7 @@ import { UsuarioLogado } from '@/constants/models/UsuarioLogado';
 import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel';
 import AnotacaoProvider from '@/app/provider/AnotacaoProvider';
 import { PacienteModel } from '@/constants/models/PacienteModel';
+import RelatoModal from './components/RelatoModal';
 
 type Props = {
   route: RouteProp<RootStackParamList, typeof ScreenRoutes.REGISTROS_PACIENTE>;

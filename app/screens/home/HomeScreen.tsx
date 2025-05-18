@@ -33,9 +33,10 @@ export default function HomeScreen() {
   const [senha, setSenha] = useState('');
 
   const handleDirecionarParaAplicaoLogada = async (): Promise<void> => {
-    const resultadoUsuarioLogado: UsuarioLogado = await LoginProvider.realizarLogin({ email, senha });
-      
-    console.log("Usuario Logado com sucesso, informacoes: \n");
+    const res = await LoginProvider.realizarLogin({ email, senha });
+    const resultadoUsuarioLogado: UsuarioLogado = res.data;
+    
+    console.log("Usuario Logado com sucesso, informacoes: \n", resultadoUsuarioLogado);
     console.log(`Nome: ${resultadoUsuarioLogado.usuarioLogadoData?.nome}`);
     console.log(`Email: ${resultadoUsuarioLogado.usuarioLogadoData?.email}`);
     console.log(`CPF: ${resultadoUsuarioLogado.usuarioLogadoData?.cpf}`);

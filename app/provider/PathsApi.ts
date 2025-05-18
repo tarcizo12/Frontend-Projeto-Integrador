@@ -1,10 +1,11 @@
-const localHostEmuladoprBasePath = "http://10.0.0.112:3000/"
+const localHostEmuladoprBasePath = "http://192.168.0.252:3000/"
 const localHostWebBasePath = "http://localhost:3000/"
 
 const currentPathSelected = localHostEmuladoprBasePath
 const basePathAnotacoes = "anotacao/"
 const basePathPacientes = "paciente/"
-const basePathLogin = "login/"
+const basePathLogin = "login/login"
+const basePathCadastro = "login/cadastrar"
 
 const PATHS_API = {
     ANOTACOES : {
@@ -15,7 +16,8 @@ const PATHS_API = {
         BUSCAR_PACIENTES_BY_ID_PSICOLOGO : `${currentPathSelected}${basePathPacientes}buscarPacientePorProfissional?idPsicologo=:id`
     },
     LOGIN : {
-        REALIZAR_LOGIN : `${currentPathSelected}${basePathLogin}`
+        REALIZAR_LOGIN : `${currentPathSelected}${basePathLogin}`,
+        REALIZAR_CADASTRO : `${currentPathSelected}${basePathCadastro}`
     }
 } 
 
