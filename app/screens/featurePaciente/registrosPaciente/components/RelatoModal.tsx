@@ -8,8 +8,7 @@ interface RelatoModalProps {
   fechar: () => void;
   registro: AnotacaoPacienteModel | null
 }
-
-export const RelatoModal: React.FC<RelatoModalProps> = ({ visivel, fechar, registro }) => {
+const RelatoModal: React.FC<RelatoModalProps> = ({ visivel, fechar, registro }) => {
   if (!registro) return null;
 
   return (
@@ -76,3 +75,5 @@ const styles = StyleSheet.create({
     margin: 3,
   },
 });
+
+export default RelatoModal;

@@ -1,4 +1,4 @@
-export class StringUtil {
+export class DateUtil {
     /**
      * Formata uma data no formato 'YYYY-MM-DD' para o formato brasileiro 'DD/MM/YYYY'.
      * 
@@ -35,4 +35,11 @@ export class StringUtil {
     
             return `${dia}/${mes}/${ano}`;
         }
+
+
+        public static formatDate (date: Date)  {
+            return `${String(date.getDate()).padStart(2, '0')}/${String(
+              date.getMonth() + 1
+            ).padStart(2, '0')}/${date.getFullYear()}`;
+        };
 }

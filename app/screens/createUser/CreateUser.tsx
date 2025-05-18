@@ -3,14 +3,28 @@ import { RootStackParamList } from '@/constants/types/RootStackParamList';
 import { NavigationProp } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, Switch, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+  Platform,
+  Pressable,
+} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import UserPayload from '@/constants/models/UserPayload';
+import { DateUtil } from '@/util/DateUtil';
 
 export default function CreateUser() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
-  const [birthDate, setBirthDate] = useState('');
+  const [birthDate, setBirthDate] = useState<Date | null>(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [isPsychologist, setIsPsychologist] = useState(false);
   const [crp, setCrp] = useState('');
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -22,9 +36,8 @@ export default function CreateUser() {
   };
 
   const handleCreateUser = () => {
-    // Validações
-    if (!name || !email || !password) {
-      Alert.alert('Erro', 'Por favor, preencha nome, email e senha.');
+    if (!name || !email || !password || !birthDate) {
+      Alert.alert('Erro', 'Por favor, preencha nome, email, senha e data de nascimento.');
       return;
     }
 
@@ -38,7 +51,17 @@ export default function CreateUser() {
       return;
     }
 
-    // Lógica de criação de usuário aqui (ex: chamada de API)
+    const informacoesUsuarioPayload: UserPayload = {
+      name,
+      email,
+      password,
+      phone,
+      crp,
+      isPsychologist,
+      birthDate: DateUtil.formatDate(birthDate),
+    };
+
+    console.log('Registro para criar: ', informacoesUsuarioPayload);
     Alert.alert('Sucesso', 'Usuário criado com sucesso!');
   };
 
@@ -77,21 +100,37 @@ export default function CreateUser() {
         keyboardType="phone-pad"
       />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Data de nascimento (DD/MM/AAAA)"
-        value={birthDate}
-        onChangeText={setBirthDate}
-        keyboardType="numeric"
-      />
+      <Pressable onPress={() => setShowDatePicker(true)} style={styles.datePickerButton}>
+        <Text style={styles.datePickerText}>
+          {birthDate ? DateUtil.formatDate(birthDate) : 'Selecionar data de nascimento'}
+        </Text>
+      </Pressable>
 
-      {/* Toggle Psicólogo */}
-      <View style={styles.switchContainer}>
-        <Text>Sou psicólogo:</Text>
-        <Switch value={isPsychologist} onValueChange={setIsPsychologist} />
+      {showDatePicker && (
+        <DateTimePicker
+          value={birthDate || new Date()}
+          mode="date"
+          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          onChange={(event, selectedDate) => {
+            setShowDatePicker(Platform.OS === 'ios');
+            if (selectedDate) {
+              setBirthDate(selectedDate);
+            }
+          }}
+          maximumDate={new Date()}
+        />
+      )}
+
+      {/* Checkbox psicólogo com ícone de check */}
+      <View style={styles.termsContainer}>
+        <TouchableOpacity onPress={() => setIsPsychologist(!isPsychologist)} style={styles.checkbox}>
+          <View style={[styles.checkboxSquare, isPsychologist && styles.checkboxSquareChecked]}>
+            {isPsychologist && <Text style={styles.checkmark}>✔️</Text>}
+          </View>
+          <Text style={styles.checkboxText}>Sou psicólogo</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* Se for psicólogo, mostrar campo CRP */}
       {isPsychologist && (
         <TextInput
           style={styles.input}
@@ -104,7 +143,9 @@ export default function CreateUser() {
       {/* Aceitar Termos */}
       <View style={styles.termsContainer}>
         <TouchableOpacity onPress={() => setAcceptedTerms(!acceptedTerms)} style={styles.checkbox}>
-          <View style={[styles.checkboxSquare, acceptedTerms && styles.checkboxSquareChecked]} />
+          <View style={[styles.checkboxSquare, acceptedTerms && styles.checkboxSquareChecked]}>
+            {acceptedTerms && <Text style={styles.checkmark}>✔️</Text>}
+          </View>
           <Text style={styles.checkboxText}>Aceito os Termos de Uso</Text>
         </TouchableOpacity>
       </View>
@@ -113,7 +154,7 @@ export default function CreateUser() {
       <Button title="Voltar" onPress={handleGoBack} color="#FF6347" />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -135,15 +176,22 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     paddingHorizontal: 10,
   },
-  switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  datePickerButton: {
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    height: 40,
+    justifyContent: 'center',
+    paddingHorizontal: 10,
     marginBottom: 15,
+  },
+  datePickerText: {
+    color: '#000',
   },
   termsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 15,
+    marginVertical: 10,
   },
   checkbox: {
     flexDirection: 'row',
@@ -155,9 +203,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     marginRight: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   checkboxSquareChecked: {
     backgroundColor: '#4CAF50',
+    borderColor: '#4CAF50',
+  },
+  checkmark: {
+    color: 'white',
+    fontSize: 14,
+    lineHeight: 20,
   },
   checkboxText: {
     fontSize: 14,
