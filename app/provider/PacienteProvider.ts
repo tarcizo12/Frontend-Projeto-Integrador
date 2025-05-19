@@ -8,5 +8,4 @@ export default class PacienteProvider {
 
     return await Providers.getRequest<PacienteModel[]>(url);
   }
-
 }

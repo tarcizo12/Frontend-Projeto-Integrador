@@ -1,94 +1,182 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
+const PROFILE_IMAGE_SIZE = 120;
 
-export const PerfilPacienteStyle = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center', 
+    alignItems: 'center',
     padding: 20,
-    backgroundColor: '#E6ECF2', // Fundo de cor clara
   },
-  profileImage: {
-    width: 130,
-    height: 130,
-    borderRadius: 75,
-    marginBottom: 20,
+
+  profileImageContainer: {
+    width: PROFILE_IMAGE_SIZE,
+    height: PROFILE_IMAGE_SIZE,
+    borderRadius: PROFILE_IMAGE_SIZE / 2,
+    backgroundColor: '#e0e0e0',
     justifyContent: 'center',
-    alignSelf: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: '#ccc',
+    overflow: 'hidden', // garante arredondamento total
   },
+
+  profileImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+
+  editIcon: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5,
+    backgroundColor: '#fff',
+    padding: 6,
+    borderRadius: 20,
+    elevation: 4,
+    borderWidth: 1,
+    borderColor: '#ccc',
+  },
+
   name: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center', 
+    marginTop: 10,
   },
-  email: {
-    fontSize: 18,
-    textAlign: 'center',
-    marginBottom: 10, // Diminuindo o espaço do email para o gráfico
-  },
-  title: {
-    alignSelf: 'center',
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  graficoContainer: {
-    width: '90%',  // Ajustando a largura para se alinhar com os outros componentes
-    minHeight: 200, // Definindo uma altura mínima para garantir o tamanho adequado
-    backgroundColor: '#ffffff',  // Fundo branco para o card
-    borderRadius: 15,  // Bordas arredondadas
-    borderColor: '#3C3C3C', // Cor da borda
-    borderWidth: 1, // Adicionando borda sutil
-    shadowColor: '#000', // Sombra para destacar
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1, // Sombra suave
-    shadowRadius: 8, // Raio da sombra
-    elevation: 5, // Para Android (sombra)
-    marginVertical: 15, // Espaçamento do gráfico para outros componentes
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10, // Garantindo um pouco de espaço interno
-  },
-  reports: {
-    width: width * 0.9,
-    paddingBottom: 20, // Garantindo espaço extra na parte inferior
 
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
   },
-  reportsContainer: {
-    alignItems: 'flex-start',
-    width: width * 0.8,
-    height: height * 0.43,
-    backgroundColor: '#ffff', // Cor de fundo mais escura
-    borderRadius: 10,
-    borderColor: '#3C3C3C', // Borda mais escura
-    borderWidth: 2, 
-    paddingTop: 20,
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingBottom: 20,
-    marginTop: 30,
-    marginBottom: 40,
-    marginRight: 20, // Espaço após o container de relatos
-  },
-  input: {
-    width: '100%',
-    height: 40,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#3C3C3C', 
-    paddingLeft: 10,
-    marginBottom: 5, // Diminuindo o espaço entre o email e o gráfico
-    backgroundColor: '#fff', 
+
+  info: {
     fontSize: 16,
+  },
+
+  smallEditIcon: {
+    marginLeft: 8,
+  },
+
+  modalBackground: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  modalContainer: {
+    width: '80%',
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    elevation: 10,
+  },
+
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+
+  modalInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 20,
+  },
+
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+
+  modalButtonCancel: {
+    marginRight: 10,
+  },
+
+  modalButtonSave: {},
+
+  modalButtonText: {
+    color: '#007bff',
     fontWeight: 'bold',
   },
-  scrollContainer: {
-    justifyContent: 'flex-start',
-    alignItems: 'center', 
-    paddingBottom: 10, 
+
+  button: {
+    marginTop: 20,
+    backgroundColor: '#e0e0e0',
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+  },
+
+  buttonText: {
+    fontSize: 16,
+    color: '#333',
+  },
+
+  section: {
+    width: '100%',
+    marginTop: 30,
+  },
+
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+
+  professionalContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  professionalText: {
+    fontSize: 16,
+  },
+
+  removeButton: {
+    backgroundColor: '#f44336',
+    padding: 5,
+    borderRadius: 5,
+  },
+
+  removeButtonText: {
+    color: '#fff',
+  },
+
+  connectContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  input: {
+    borderWidth: 1,
+    padding: 8,
+    borderRadius: 5,
+    marginRight: 10,
+    flex: 1,
+  },
+
+  connectButton: {
+    backgroundColor: '#007bff',
+    padding: 8,
+    borderRadius: 5,
+  },
+
+  connectButtonText: {
+    color: '#fff',
+  },
+  sideMenuContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 });
+
+export default styles;

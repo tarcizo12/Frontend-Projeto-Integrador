@@ -6,6 +6,7 @@ const basePathAnotacoes = "anotacao/"
 const basePathPacientes = "paciente/"
 const basePathLogin = "login/login"
 const basePathCadastro = "login/cadastrar"
+const basePathPsicologo = "psicologo/"
 
 const PATHS_API = {
     ANOTACOES : {
@@ -18,6 +19,9 @@ const PATHS_API = {
     LOGIN : {
         REALIZAR_LOGIN : `${currentPathSelected}${basePathLogin}`,
         REALIZAR_CADASTRO : `${currentPathSelected}${basePathCadastro}`
+    },
+    PSICOLOGO : {
+        CONSULTAR_PSICOLOGO_BY_ID : `${currentPathSelected}${basePathPsicologo}/buscarPsicologo?idPsicologo=:id`
     }
 } 
 
