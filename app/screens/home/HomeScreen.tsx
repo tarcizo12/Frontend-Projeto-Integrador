@@ -19,6 +19,7 @@ import { UsuarioLogado } from '@/constants/models/UsuarioLogado';
 import { PacienteModel } from '@/constants/models/PacienteModel';
 import { PsicologoModel } from '@/constants/models/PsicologoModel';
 import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
+import { useLoading } from '@/hooks/LoadingContext';
 
 
 const screenHeight = Dimensions.get('window').height;
@@ -34,8 +35,10 @@ export default function HomeScreen() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const { setUsuarioLogado } = useUsuarioLogado();
+  const { showLoading, hideLoading} = useLoading()
 
   const handleDirecionarParaAplicaoLogada = async (): Promise<void> => {
+    showLoading()
     const res = await LoginProvider.realizarLogin({ email, senha });
     const resultadoUsuarioLogado: UsuarioLogado = res.data;
     
@@ -57,6 +60,8 @@ export default function HomeScreen() {
       setUsuarioLogado(resultadoUsuarioLogado)
       navigation.navigate(ScreenRoutes.HOME_PSICOLOGO_SCREEN);
     }
+
+    hideLoading()
   };
   
 

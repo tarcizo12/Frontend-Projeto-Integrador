@@ -11,7 +11,8 @@ const basePathPsicologo = "psicologo/"
 const PATHS_API = {
     ANOTACOES : {
         BUSCAR_ANOTACAO_BY_PACIENTE : `${currentPathSelected}${basePathAnotacoes}buscarAnotacaoPorIdPaciente?idPaciente=:id`,
-        SALVAR_ANOTACAO : `${currentPathSelected}${basePathAnotacoes}registrarAnotacao`
+        SALVAR_ANOTACAO : `${currentPathSelected}${basePathAnotacoes}registrarAnotacao`,
+        OBTER_TITULO_GERADO : `${currentPathSelected}${basePathAnotacoes}obterTitulo?descricao=:desc`
     },
     PACIENTE : {
         BUSCAR_PACIENTES_BY_ID_PSICOLOGO : `${currentPathSelected}${basePathPacientes}buscarPacientePorProfissional?idPsicologo=:id`

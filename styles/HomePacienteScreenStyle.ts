@@ -1,4 +1,4 @@
-import {  StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const widthScreen = Dimensions.get('window').width;
 const heightScreen = Dimensions.get('window').height;
@@ -49,43 +49,55 @@ const styles = StyleSheet.create({
   titleContainer: {
     backgroundColor: '#ffffff',
     width: widthScreen * 0.95,
-    height: heightScreen * 0.18,
     marginTop: 20,
     padding: 10,
-  },
-  textTitleContainer: {
-    width: '100%',
-    height: '30%',
     borderWidth: 1,
-    borderColor: '#CCCCCC',
+    borderColor: '#E0E0E0',
     borderRadius: 10,
-    padding: 10,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  titleInput: {
+    width: '100%',
+    minHeight: 50,
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    borderRadius: 8,
+    padding: 12,
+    fontSize: 16,
+    backgroundColor: '#FAFAFA',
+    marginBottom: 10,
   },
   headerTitleContainer: {
     width: '100%',
-    height: '20%',
     marginBottom: 10,
     backgroundColor: 'white',
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
-  gernerateTitleContainer: {
+  generateTitleContainer: {
     width: '100%',
-    height: '20%',
-    marginTop: 10,
-    backgroundColor: 'white',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    alignItems: 'flex-end',
+    marginTop: 5,
   },
-  titleTextInput: {
-    width: '100%',
-    height: '60%',
-    borderRadius: 8,
+  generateButton: {
+    backgroundColor: '#F0F7F8',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#20A69F',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  generateButtonText: {
+    color: '#20A69F',
     fontSize: 14,
-    backgroundColor: '#FFFFFF',
+    fontWeight: '600',
+    marginLeft: 5,
   },
   addButtonContainer: {
     alignItems: 'center',
@@ -99,6 +111,11 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
   addButtonText: {
     color: 'white',

@@ -1,7 +1,7 @@
 import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel';
-import axios, { AxiosResponse } from 'axios';
 import PATHS_API from './PathsApi';
 import Providers from './Providers';
+import TituloResponse from '@/constants/models/TituloResponse';
 
 export default class AnotacaoProvider {
   static async obterListaAnotacoesPaciente(idPaciente: number): Promise<AnotacaoPacienteModel[]> {
@@ -11,6 +11,12 @@ export default class AnotacaoProvider {
     );
 
     return await Providers.getRequest<AnotacaoPacienteModel[]>(url);
+  }
+
+  static async obterTituloGeradoPorDescricao(descricao: string): Promise<TituloResponse> {
+    const url = PATHS_API.ANOTACOES.OBTER_TITULO_GERADO.replace(":desc" , descricao)
+
+    return await Providers.getRequest<TituloResponse>(url);
   }
 
   static async salvarNovaAnotacao(anotacao: AnotacaoPacienteModel): Promise<number> {

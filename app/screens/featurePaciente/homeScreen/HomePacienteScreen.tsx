@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, TextInput } from 'react-native';
+import { View, TouchableOpacity, Text, TextInput, Alert } from 'react-native';
 import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel';
 import AnotacaoProvider from '@/app/provider/AnotacaoProvider';
 import Sidemenu from '../../Sidemenu';
 import styles from '@/styles/HomePacienteScreenStyle';
-import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
+
 import { useLoading } from '@/hooks/LoadingContext';
 import { PacienteModel } from '@/constants/models/PacienteModel';
+import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
 
 export default function HomePacienteScreen() {
   const [descricaoAnotacaoText, setDescricaoAnotacaoText] = useState('');
@@ -16,31 +17,49 @@ export default function HomePacienteScreen() {
   const { showLoading, hideLoading } = useLoading();
 
   const adicionarAnotacao = async () => {
-    const novaAnotacao = new AnotacaoPacienteModel();
-    const paciente: PacienteModel = usuarioLogado.usuarioLogadoData as PacienteModel
+    if (!tituloAnotacaoText || !descricaoAnotacaoText) {
+      Alert.alert('Atenção', 'Por favor, preencha o título e a descrição antes de salvar');
+      return;
+    }
 
-    novaAnotacao.descricao = descricaoAnotacaoText
-    novaAnotacao._fk_idPaciente = paciente.idPaciente
+    const novaAnotacao = new AnotacaoPacienteModel();
+    const paciente: PacienteModel = usuarioLogado.usuarioLogadoData as PacienteModel;
+
+    novaAnotacao.descricao = descricaoAnotacaoText;
+    novaAnotacao._fk_idPaciente = paciente.idPaciente;
+    novaAnotacao.titulo = tituloAnotacaoText;
 
     try {
-      console.log("Salvando anotacao... " , novaAnotacao)
-
-      showLoading()
-      AnotacaoProvider.salvarNovaAnotacao(novaAnotacao).then((idAnotacao)=>{
-        console.log('Anotação salva com sucesso! ID:', idAnotacao);
-      }).catch((erro)=>{
-        console.error("Falha ao salvar nova anotacao, ", erro)
-      }).finally(()=>{
-        setDescricaoAnotacaoText('');
-        setTituloAnotacaoText('');
-        hideLoading()
-      });
-      
+      showLoading();
+      await AnotacaoProvider.salvarNovaAnotacao(novaAnotacao);
+      Alert.alert('Sucesso', 'Anotação registrada com sucesso!');
+      setDescricaoAnotacaoText('');
+      setTituloAnotacaoText('');
     } catch (error) {
-      console.error('Erro ao salvar anotação:', error);
+      console.error("Falha ao salvar nova anotacao: ", error);
+      Alert.alert('Erro', 'Não foi possível salvar a anotação. Tente novamente.');
+    } finally {
+      hideLoading();
     }
   };
 
+  const gerarTitulo = async () => {
+    if (!descricaoAnotacaoText) {
+      Alert.alert('Atenção', 'Por favor, escreva algo sobre como está se sentindo antes de gerar o título');
+      return;
+    }
+
+    showLoading();
+    try {
+      const tituloResponse = await AnotacaoProvider.obterTituloGeradoPorDescricao(descricaoAnotacaoText);
+      setTituloAnotacaoText(tituloResponse.tituloGerado);
+    } catch (error) {
+      console.error("Falha ao gerar titulo: ", error);
+      Alert.alert('Erro', 'Não foi possível gerar o título. Tente novamente.');
+    } finally {
+      hideLoading();
+    }
+  };
 
   return (
     <View style={styles.background}>
@@ -67,29 +86,29 @@ export default function HomePacienteScreen() {
         <View style={styles.headerTitleContainer}>
           <Text style={{ fontSize: 16, fontWeight: '600' }}>Título</Text>
         </View>
-        <View style={styles.textTitleContainer}>
-          <TextInput
-            style={styles.titleTextInput}
-            placeholder="Digite o título da anotação"
-            value={tituloAnotacaoText}
-            onChangeText={setTituloAnotacaoText}
-            scrollEnabled
-            multiline={false}
-            textAlignVertical="center"
-            textAlign="left"
-            autoCorrect={false}
-            autoCapitalize="none"
-          />
-        </View>
-        <View style={styles.gernerateTitleContainer}>
-          <TouchableOpacity onPress={() => {}}>
-            <Text style={{ fontSize: 16 }}>Gerar com IA</Text>
+        <TextInput
+          style={styles.titleInput}
+          placeholder="Digite o título da anotação ou gere automaticamente"
+          value={tituloAnotacaoText}
+          onChangeText={setTituloAnotacaoText}
+        />
+        <View style={styles.generateTitleContainer}>
+          <TouchableOpacity 
+            style={styles.generateButton} 
+            onPress={gerarTitulo}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.generateButtonText}>Gerar com IA</Text>
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={styles.addButtonContainer}>
-        <TouchableOpacity style={styles.addButton} onPress={adicionarAnotacao}>
+        <TouchableOpacity 
+          style={styles.addButton} 
+          onPress={adicionarAnotacao}
+          activeOpacity={0.7}
+        >
           <Text style={styles.addButtonText}>Salvar</Text>
         </TouchableOpacity>
       </View>
@@ -98,4 +117,3 @@ export default function HomePacienteScreen() {
     </View>
   );
 }
-
