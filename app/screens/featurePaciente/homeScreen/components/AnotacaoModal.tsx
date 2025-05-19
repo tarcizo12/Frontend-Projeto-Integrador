@@ -75,8 +75,8 @@ const AnotacaoModal = ({ visible, idPaciente ,setVisibleFalseModal  }: AnotacaoM
       backgroundColor: 'rgba(0,0,0,0.5)',
     },
     modalContent: {
-      width: '90%', // Usa mais da tela para evitar problemas de tamanho
-      maxHeight: '80%', // Evita que o modal ultrapasse a tela
+      width: '90%', 
+      maxHeight: '80%', 
       backgroundColor: '#FFFFFF',
       borderRadius: 10,
       padding: 20,

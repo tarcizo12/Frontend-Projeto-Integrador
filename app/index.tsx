@@ -15,61 +15,64 @@ import PerfilPaciente from './screens/perfilPaciente/PerfilPaciente';
 import ScreenRoutes from '@/constants/ScreenRoutes';
 import { RootStackParamList } from '@/constants/types/RootStackParamList';
 import { LoadingProvider } from '@/hooks/LoadingContext';
+import { UsuarioLogadoProvider } from '@/hooks/UsuarioLogadoProvider ';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
     <LoadingProvider>
-      <NavigationContainer independent={true}>
-        <Stack.Navigator initialRouteName={ScreenRoutes.HOME_SCREEN}>
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name={ScreenRoutes.HOME_SCREEN}
-            component={HomeScreen}
-          />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name={ScreenRoutes.HOME_PSICOLOGO_SCREEN}
-            component={HomePsciologoScreen}
-          />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name={ScreenRoutes.PERFIL_PACIENTE_BY_PSCIOLOGO}
-            component={PerfilPacienteByPsciologoScreen}
-          />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name={ScreenRoutes.HOME_PACIENTE_SCREEN}
-            component={HomePacienteScreen}
-          />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name={ScreenRoutes.CALENDARIO_PACIENTE}
-            component={CalendarioPaciente}
-          />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name={ScreenRoutes.REGISTROS_PACIENTE}
-            component={RegistrosPaciente}
-          />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name={ScreenRoutes.CREATE_USER}
-            component={CreateUser}
-          />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name={ScreenRoutes.FORGOT_MY_PASSWORD}
-            component={ForgotMyPass}
-          />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name={ScreenRoutes.PERFIL_PACIENTE}
-            component={PerfilPaciente}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <UsuarioLogadoProvider>
+        <NavigationContainer independent={true}>
+          <Stack.Navigator initialRouteName={ScreenRoutes.HOME_SCREEN}>
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={ScreenRoutes.HOME_SCREEN}
+              component={HomeScreen}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={ScreenRoutes.HOME_PSICOLOGO_SCREEN}
+              component={HomePsciologoScreen}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={ScreenRoutes.PERFIL_PACIENTE_BY_PSCIOLOGO}
+              component={PerfilPacienteByPsciologoScreen}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={ScreenRoutes.HOME_PACIENTE_SCREEN}
+              component={HomePacienteScreen}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={ScreenRoutes.CALENDARIO_PACIENTE}
+              component={CalendarioPaciente}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={ScreenRoutes.REGISTROS_PACIENTE}
+              component={RegistrosPaciente}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={ScreenRoutes.CREATE_USER}
+              component={CreateUser}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={ScreenRoutes.FORGOT_MY_PASSWORD}
+              component={ForgotMyPass}
+            />
+            <Stack.Screen
+              options={{ headerShown: false }}
+              name={ScreenRoutes.PERFIL_PACIENTE}
+              component={PerfilPaciente}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </UsuarioLogadoProvider>
     </LoadingProvider>
   );
 }

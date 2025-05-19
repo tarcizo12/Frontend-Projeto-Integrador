@@ -18,6 +18,8 @@ import LoginProvider from '@/app/provider/LoginProvider';
 import { UsuarioLogado } from '@/constants/models/UsuarioLogado';
 import { PacienteModel } from '@/constants/models/PacienteModel';
 import { PsicologoModel } from '@/constants/models/PsicologoModel';
+import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
+
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -31,6 +33,7 @@ export default function HomeScreen() {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const { setUsuarioLogado } = useUsuarioLogado();
 
   const handleDirecionarParaAplicaoLogada = async (): Promise<void> => {
     const res = await LoginProvider.realizarLogin({ email, senha });
@@ -44,12 +47,14 @@ export default function HomeScreen() {
     if(resultadoUsuarioLogado.isPaciente){
       const paciente = resultadoUsuarioLogado.usuarioLogadoData as PacienteModel;
 
+      setUsuarioLogado(resultadoUsuarioLogado)
       navigation.navigate(ScreenRoutes.REGISTROS_PACIENTE, { usuario: paciente });
     }
 
     if(resultadoUsuarioLogado.isPsicologo){
       const psicologo = resultadoUsuarioLogado.usuarioLogadoData as PsicologoModel;
 
+      setUsuarioLogado(resultadoUsuarioLogado)
       navigation.navigate(ScreenRoutes.HOME_PSICOLOGO_SCREEN);
     }
   };
@@ -61,10 +66,6 @@ export default function HomeScreen() {
 
   const handleDirecionarParaTelaDeRecuperarSenha = (): void => {
     navigation.navigate(ScreenRoutes.FORGOT_MY_PASSWORD);
-  };
-
-  const handleVoltarParaTelaDeLogin = (): void => {
-    navigation.navigate(ScreenRoutes.HOME_SCREEN);
   };
 
   return (

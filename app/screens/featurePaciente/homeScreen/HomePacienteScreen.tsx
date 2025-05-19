@@ -1,44 +1,46 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, TextInput, Dimensions } from 'react-native';
+import { View, TouchableOpacity, Text, TextInput } from 'react-native';
 import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel';
-import { AnotacaoPacienteMockFactory } from '@/constants/mock/AnotacaoPacienteMockFactory';
-import RenderCellsAnotacoes from './components/RenderCellsAnotacoes';
 import AnotacaoProvider from '@/app/provider/AnotacaoProvider';
 import Sidemenu from '../../Sidemenu';
-
-const ID_PACIENTE_MOCK = 1;
+import styles from '@/styles/HomePacienteScreenStyle';
+import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
+import { useLoading } from '@/hooks/LoadingContext';
+import { PacienteModel } from '@/constants/models/PacienteModel';
 
 export default function HomePacienteScreen() {
   const [descricaoAnotacaoText, setDescricaoAnotacaoText] = useState('');
   const [tituloAnotacaoText, setTituloAnotacaoText] = useState('');
+  const { usuarioLogado } = useUsuarioLogado();
+  
+  const { showLoading, hideLoading } = useLoading();
 
-  // TODO: Finalizar a implementação da criação de anotações
   const adicionarAnotacao = async () => {
-    const novaAnotacao = new AnotacaoPacienteModel(
-      AnotacaoPacienteMockFactory.getAnotacaoPacienteInicialValues().idAnotacao,
-      descricaoAnotacaoText,
-      new Date(),
-      ID_PACIENTE_MOCK,
-      null,
-    );
+    const novaAnotacao = new AnotacaoPacienteModel();
+    const paciente: PacienteModel = usuarioLogado.usuarioLogadoData as PacienteModel
+
+    novaAnotacao.descricao = descricaoAnotacaoText
+    novaAnotacao._fk_idPaciente = paciente.idPaciente
+
     try {
-      const idAnotacao = await AnotacaoProvider.salvarNovaAnotacao(novaAnotacao);
-      console.log('Anotação salva com sucesso! ID:', idAnotacao);
-      setDescricaoAnotacaoText('');
-      setTituloAnotacaoText('');
+      console.log("Salvando anotacao... " , novaAnotacao)
+
+      showLoading()
+      AnotacaoProvider.salvarNovaAnotacao(novaAnotacao).then((idAnotacao)=>{
+        console.log('Anotação salva com sucesso! ID:', idAnotacao);
+      }).catch((erro)=>{
+        console.error("Falha ao salvar nova anotacao, ", erro)
+      }).finally(()=>{
+        setDescricaoAnotacaoText('');
+        setTituloAnotacaoText('');
+        hideLoading()
+      });
+      
     } catch (error) {
       console.error('Erro ao salvar anotação:', error);
     }
   };
-  // TODO: Adicionar o método para gerar o título com IA
-  // const gerarTituloComIA = async () => {
-  //   const response = await AnotacaoProvider.gerarTituloComIA(descricaoAnotacaoText);
-  //   if (response) {
-  //     setTituloAnotacaoText(response);
-  //   } else {
-  //     console.error('Erro ao gerar título com IA');
-  //   }
-  // };
+
 
   return (
     <View style={styles.background}>
@@ -97,109 +99,3 @@ export default function HomePacienteScreen() {
   );
 }
 
-const widthScreen = Dimensions.get('window').width;
-const heightScreen = Dimensions.get('window').height;
-
-const styles = StyleSheet.create({
-  background: {
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: widthScreen,
-    flex: 1,
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#20A69F',
-    width: widthScreen,
-    height: heightScreen * 0.07,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
-  },
-  inputContainer: {
-    width: widthScreen * 0.9,
-    height: heightScreen * 0.3,
-    borderWidth: 1,
-    borderColor: '#CCCCCC',
-    borderRadius: 10,
-    padding: 10,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 16,
-  },
-  textInput: {
-    width: '100%',
-    height: '80%',
-    padding: 10,
-    borderRadius: 8,
-    fontSize: 14,
-    backgroundColor: '#FFFFFF',
-    textAlignVertical: 'top',
-  },
-  titleContainer: {
-    backgroundColor: '#ffffff',
-    width: widthScreen * 0.95,
-    height: heightScreen * 0.18,
-    marginTop: 20,
-    padding: 10,
-  },
-  textTitleContainer: {
-    width: '100%',
-    height: '30%',
-    borderWidth: 1,
-    borderColor: '#CCCCCC',
-    borderRadius: 10,
-    padding: 10,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerTitleContainer: {
-    width: '100%',
-    height: '20%',
-    marginBottom: 10,
-    backgroundColor: 'white',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  gernerateTitleContainer: {
-    width: '100%',
-    height: '20%',
-    marginTop: 10,
-    backgroundColor: 'white',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  titleTextInput: {
-    width: '100%',
-    height: '60%',
-    borderRadius: 8,
-    fontSize: 14,
-    backgroundColor: '#FFFFFF',
-  },
-  addButtonContainer: {
-    alignItems: 'center',
-    marginVertical: 20,
-    width: '80%',
-  },
-  addButton: {
-    backgroundColor: '#20A69F',
-    width: widthScreen * 0.25,
-    height: heightScreen * 0.05,
-    borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  addButtonText: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-});
