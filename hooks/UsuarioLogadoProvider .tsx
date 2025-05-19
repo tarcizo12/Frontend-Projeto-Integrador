@@ -19,12 +19,16 @@ export const UsuarioLogadoProvider = ({ children }: UsuarioLogadoProviderProps) 
     setUsuarioLogadoState(usuario);
   };
 
+  const logoutUsuario = () => {
+    setUsuarioLogadoState(usuarioInit)
+  }
+
   const getUsuarioLogado = (): UsuarioLogado => {
     return usuarioLogado;
   };
 
   return (
-    <UsuarioLogadoContext.Provider value={{ usuarioLogado, setUsuarioLogado, getUsuarioLogado }}>
+    <UsuarioLogadoContext.Provider value={{ usuarioLogado, setUsuarioLogado, getUsuarioLogado, logoutUsuario }}>
       {children}
     </UsuarioLogadoContext.Provider>
   );

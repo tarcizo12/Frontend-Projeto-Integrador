@@ -116,8 +116,8 @@ export default function ProfileScreen() {
             <Text style={styles.professionalText}>{professional}</Text>
         </View>
       </View>
-      <LogoutButton></LogoutButton>
       
+      <LogoutButton></LogoutButton>  
       <TrocarSenhaButton handleChangePassword={handleChangePassword}></TrocarSenhaButton>
 
       <Modal
