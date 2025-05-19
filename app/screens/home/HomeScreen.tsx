@@ -18,6 +18,9 @@ import LoginProvider from '@/app/provider/LoginProvider';
 import { UsuarioLogado } from '@/constants/models/UsuarioLogado';
 import { PacienteModel } from '@/constants/models/PacienteModel';
 import { PsicologoModel } from '@/constants/models/PsicologoModel';
+import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
+import { useLoading } from '@/hooks/LoadingContext';
+
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -31,11 +34,15 @@ export default function HomeScreen() {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const { setUsuarioLogado } = useUsuarioLogado();
+  const { showLoading, hideLoading} = useLoading()
 
   const handleDirecionarParaAplicaoLogada = async (): Promise<void> => {
-    const resultadoUsuarioLogado: UsuarioLogado = await LoginProvider.realizarLogin({ email, senha });
-      
-    console.log("Usuario Logado com sucesso, informacoes: \n");
+    showLoading()
+    const res = await LoginProvider.realizarLogin({ email, senha });
+    const resultadoUsuarioLogado: UsuarioLogado = res.data;
+    
+    console.log("Usuario Logado com sucesso, informacoes: \n", resultadoUsuarioLogado);
     console.log(`Nome: ${resultadoUsuarioLogado.usuarioLogadoData?.nome}`);
     console.log(`Email: ${resultadoUsuarioLogado.usuarioLogadoData?.email}`);
     console.log(`CPF: ${resultadoUsuarioLogado.usuarioLogadoData?.cpf}`);
@@ -43,14 +50,18 @@ export default function HomeScreen() {
     if(resultadoUsuarioLogado.isPaciente){
       const paciente = resultadoUsuarioLogado.usuarioLogadoData as PacienteModel;
 
+      setUsuarioLogado(resultadoUsuarioLogado)
       navigation.navigate(ScreenRoutes.REGISTROS_PACIENTE, { usuario: paciente });
     }
 
     if(resultadoUsuarioLogado.isPsicologo){
       const psicologo = resultadoUsuarioLogado.usuarioLogadoData as PsicologoModel;
 
+      setUsuarioLogado(resultadoUsuarioLogado)
       navigation.navigate(ScreenRoutes.HOME_PSICOLOGO_SCREEN);
     }
+
+    hideLoading()
   };
   
 
@@ -60,10 +71,6 @@ export default function HomeScreen() {
 
   const handleDirecionarParaTelaDeRecuperarSenha = (): void => {
     navigation.navigate(ScreenRoutes.FORGOT_MY_PASSWORD);
-  };
-
-  const handleVoltarParaTelaDeLogin = (): void => {
-    navigation.navigate(ScreenRoutes.HOME_SCREEN);
   };
 
   return (

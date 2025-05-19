@@ -6,7 +6,7 @@ export class PacienteModel {
     public email: string;
     public nomeDoResponsavel: string;
     public telefone: string;
-    public fkIdProfissional: number;
+    public fk_idProfissional: number;
 
     constructor(
         idPaciente: number,
@@ -25,6 +25,6 @@ export class PacienteModel {
         this.email = email;
         this.nomeDoResponsavel = nomeDoResponsavel;
         this.telefone = telefone;
-        this.fkIdProfissional = fkIdProfissional;
+        this.fk_idProfissional = fkIdProfissional;
     }
 }

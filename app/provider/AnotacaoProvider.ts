@@ -1,6 +1,7 @@
 import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel';
-import axios, { AxiosResponse } from 'axios';
 import PATHS_API from './PathsApi';
+import Providers from './Providers';
+import TituloResponse from '@/constants/models/TituloResponse';
 
 export default class AnotacaoProvider {
   static async obterListaAnotacoesPaciente(idPaciente: number): Promise<AnotacaoPacienteModel[]> {
@@ -9,37 +10,21 @@ export default class AnotacaoProvider {
       idPaciente.toString()
     );
 
-    return await AnotacaoProvider.getRequest<AnotacaoPacienteModel[]>(url);
+    return await Providers.getRequest<AnotacaoPacienteModel[]>(url);
+  }
+
+  static async obterTituloGeradoPorDescricao(descricao: string): Promise<TituloResponse> {
+    const url = PATHS_API.ANOTACOES.OBTER_TITULO_GERADO.replace(":desc" , descricao)
+
+    return await Providers.getRequest<TituloResponse>(url);
   }
 
   static async salvarNovaAnotacao(anotacao: AnotacaoPacienteModel): Promise<number> {
     const url = PATHS_API.ANOTACOES.SALVAR_ANOTACAO;
     
-    const response = await AnotacaoProvider.postRequest<AnotacaoPacienteModel>(url, anotacao);
+    const response = await Providers.postRequest<AnotacaoPacienteModel, AnotacaoPacienteModel>(url, anotacao);
 
     return response.idAnotacao;
   }
-
-
-  private static async postRequest<T>(url: string, body: T): Promise<T> {
-    try {
-      const response: AxiosResponse<T> = await axios.post(url, body);
-      return response.data; 
-    } catch (error) {
-      console.error('Erro ao realizar POST:', error);
-      throw error;
-    }
-  }
-
-  private static async getRequest<T>(url: string): Promise<T> {
-    try {
-      const response: AxiosResponse<T> = await axios.get(url);
-      return response.data;
-    } catch (error) {
-      console.error('Erro ao realizar GET: ' + url, error);
-      throw error;
-    }
-  }
-  
 
 }
