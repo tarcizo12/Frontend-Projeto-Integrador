@@ -36,7 +36,6 @@ export default function HomePacienteScreen() {
       setDescricaoAnotacaoText('');
       setTituloAnotacaoText('');
     } catch (error) {
-      console.error("Falha ao salvar nova anotacao: ", error);
       Alert.alert('Erro', 'Não foi possível salvar a anotação. Tente novamente.');
     } finally {
       hideLoading();
@@ -54,7 +53,6 @@ export default function HomePacienteScreen() {
       const tituloResponse = await AnotacaoProvider.obterTituloGeradoPorDescricao(descricaoAnotacaoText);
       setTituloAnotacaoText(tituloResponse.tituloGerado);
     } catch (error) {
-      console.error("Falha ao gerar titulo: ", error);
       Alert.alert('Erro', 'Não foi possível gerar o título. Tente novamente.');
     } finally {
       hideLoading();
