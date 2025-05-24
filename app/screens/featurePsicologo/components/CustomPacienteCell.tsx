@@ -4,6 +4,8 @@ import CustomButtonStyle from '@/styles/CustomButtonStyle';
 import { PacienteItemProps } from '@/constants/types/PacienteItemProps';
 
 const CustomPacienteCell: React.FC<PacienteItemProps> = ({ paciente, onPress,  }) => {
+
+  
   return (
     <TouchableOpacity key={paciente.idPaciente} onPress={() => onPress(paciente)}>
       <View style={CustomButtonStyle.item}>

@@ -9,7 +9,6 @@ export default function BackButton() {
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-        {/* Ícone de seta para a esquerda */}
         <Icon name="arrow-back" size={24} color="#FFFFFF" />
       </TouchableOpacity>
     </View>

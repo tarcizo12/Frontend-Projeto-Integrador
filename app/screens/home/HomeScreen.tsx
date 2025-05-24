@@ -39,29 +39,29 @@ export default function HomeScreen() {
 
   const handleDirecionarParaAplicaoLogada = async (): Promise<void> => {
     showLoading()
-    const res = await LoginProvider.realizarLogin({ email, senha });
-    const resultadoUsuarioLogado: UsuarioLogado = res.data;
+    LoginProvider.realizarLogin({ email, senha }).then((res)=>{
+      const resultadoUsuarioLogado: UsuarioLogado = res.data;
     
-    console.log("Usuario Logado com sucesso, informacoes: \n", resultadoUsuarioLogado);
-    console.log(`Nome: ${resultadoUsuarioLogado.usuarioLogadoData?.nome}`);
-    console.log(`Email: ${resultadoUsuarioLogado.usuarioLogadoData?.email}`);
-    console.log(`CPF: ${resultadoUsuarioLogado.usuarioLogadoData?.cpf}`);
+      console.log("Usuario Logado com sucesso, informacoes: \n", resultadoUsuarioLogado);
+      console.log(`Nome: ${resultadoUsuarioLogado.usuarioLogadoData?.nome}`);
+      console.log(`Email: ${resultadoUsuarioLogado.usuarioLogadoData?.email}`);
+      console.log(`CPF: ${resultadoUsuarioLogado.usuarioLogadoData?.cpf}`);
+  
+      if(resultadoUsuarioLogado.isPaciente){
+        const paciente = resultadoUsuarioLogado.usuarioLogadoData as PacienteModel;
+  
+        setUsuarioLogado(resultadoUsuarioLogado)
+        navigation.navigate(ScreenRoutes.REGISTROS_PACIENTE, { usuario: paciente });
+      }
+  
+      if(resultadoUsuarioLogado.isPsicologo){
+        const psicologo = resultadoUsuarioLogado.usuarioLogadoData as PsicologoModel;
+  
+        setUsuarioLogado(resultadoUsuarioLogado)
+        navigation.navigate(ScreenRoutes.HOME_PSICOLOGO_SCREEN);
+      }
+    }).finally(()=> hideLoading());
 
-    if(resultadoUsuarioLogado.isPaciente){
-      const paciente = resultadoUsuarioLogado.usuarioLogadoData as PacienteModel;
-
-      setUsuarioLogado(resultadoUsuarioLogado)
-      navigation.navigate(ScreenRoutes.REGISTROS_PACIENTE, { usuario: paciente });
-    }
-
-    if(resultadoUsuarioLogado.isPsicologo){
-      const psicologo = resultadoUsuarioLogado.usuarioLogadoData as PsicologoModel;
-
-      setUsuarioLogado(resultadoUsuarioLogado)
-      navigation.navigate(ScreenRoutes.HOME_PSICOLOGO_SCREEN);
-    }
-
-    hideLoading()
   };
   
 

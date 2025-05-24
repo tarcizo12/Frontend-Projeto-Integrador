@@ -1,4 +1,4 @@
-const localHostEmuladoprBasePath = "http://192.168.0.252:3000/"
+const localHostEmuladoprBasePath = "http:///10.0.0.177:3000/"
 const localHostWebBasePath = "http://localhost:3000/"
 
 const currentPathSelected = localHostEmuladoprBasePath

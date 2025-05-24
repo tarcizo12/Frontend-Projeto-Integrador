@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderWidth: 2,
     borderColor: '#ccc',
-    overflow: 'hidden', // garante arredondamento total
+    overflow: 'hidden', 
   },
 
   profileImage: {

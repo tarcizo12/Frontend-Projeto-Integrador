@@ -1,19 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {View } from 'react-native';
 import HomeScreenStyle from '@/styles/HomeScreenStyle';
 import CustomText from '@/common/CustomText';
 import SearchBarPacientes from '@/common/SearchBarPacientes';
 import RenderCellsPaciente from './components/RenderCellsPaciente';
 import BackButton from '@/common/BackButton';
-const MOCK_ID_PSICOLOGO_LOGADO = 1
+import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
+import { PsicologoModel } from '@/constants/models/PsicologoModel';
 
 export default function HomePsciologoScreen() {
+  const { usuarioLogado } = useUsuarioLogado();
+  const psicologoLogado = usuarioLogado.usuarioLogadoData as PsicologoModel
+  const id = psicologoLogado.idProfissional;
+
   return (
     <View style={HomeScreenStyle.container}>
-      <BackButton /> {/*Remover esse componente na versao final*/}   
+      <BackButton /> 
       <CustomText label="Acompanhar pacientes" />  
       <SearchBarPacientes placeholder={'Buscar paciente'} />  
-      <RenderCellsPaciente idPsicologoLogado={MOCK_ID_PSICOLOGO_LOGADO}></RenderCellsPaciente>
+      <RenderCellsPaciente idPsicologoLogado={id}></RenderCellsPaciente>
     </View>
 );
 }

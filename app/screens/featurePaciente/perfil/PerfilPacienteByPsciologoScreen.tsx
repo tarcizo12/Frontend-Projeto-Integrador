@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ScrollView, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  ScrollView,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { PacienteRouteProp } from '@/constants/types/PacienteRouteProp';
-import { PerfilPacienteStyle } from '@/styles/PerfilPacienteStyle';
 import PacienteInfo from './componentes/PacienteInfo';
 import RelatoItem from './componentes/RelatoItem';
 import AnotacaoProvider from '@/app/provider/AnotacaoProvider';
 import { PieChart } from 'react-native-chart-kit';
 import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel';
 import BackButton from '@/common/BackButton';
-
 
 const { width } = Dimensions.get('window');
 
@@ -20,43 +25,37 @@ const PerfilPacienteByPsciologoScreen = () => {
   const [anotacoes, setAnotacoes] = useState<AnotacaoPacienteModel[]>([]);
   const [emocaoPredominante, setEmocaoPredominante] = useState<any[]>([]);
 
-  const buscarAnotacoesPacienteAtualSelecioando = () => {
+  useEffect(() => {
     if (pacienteInfo) {
-      const { idPaciente } = pacienteInfo;
-      AnotacaoProvider.obterListaAnotacoesPaciente(idPaciente).then((anotacoes) => {
-        setAnotacoes(anotacoes);
-        calcularEmocaoPredominante(anotacoes);
+      AnotacaoProvider.obterListaAnotacoesPaciente(pacienteInfo.idPaciente).then((anotacoes) => {
+        setAnotacoes(anotacoes || []);
+        calcularEmocaoPredominante(anotacoes || []);
       });
     }
-  };
+  }, [pacienteInfo]);
 
   const calcularEmocaoPredominante = (anotacoes: AnotacaoPacienteModel[]) => {
     const contagem: Record<string, number> = {};
 
     anotacoes.forEach((anotacao) => {
-      if (anotacao.emocaoEstimada) {
-        contagem[anotacao.emocaoEstimada] = (contagem[anotacao.emocaoEstimada] || 0) + 1;
+      const emocao = anotacao.emocaoEstimada;
+      if (emocao && typeof emocao === 'string') {
+        contagem[emocao] = (contagem[emocao] || 0) + 1;
       }
     });
 
     const dadosGrafico = Object.keys(contagem).map((key) => ({
       name: key,
       population: contagem[key],
-      color: getRandomColor(),
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
+      color: corEmocao[key as keyof typeof corEmocao] || getRandomColor(),
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 15,
     }));
 
     setEmocaoPredominante(dadosGrafico);
   };
 
-  const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-
-  useEffect(() => {
-    if (pacienteInfo) {
-      buscarAnotacoesPacienteAtualSelecioando();
-    }
-  }, [pacienteInfo]);
+  const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
 
   if (!pacienteInfo) {
     return (
@@ -69,7 +68,7 @@ const PerfilPacienteByPsciologoScreen = () => {
   return (
     <ScrollView contentContainerStyle={PerfilPacienteStyle.scrollContainer}>
       <View style={PerfilPacienteStyle.container}>
-      <BackButton /> {/*Remover esse componente na versao final*/}
+        <BackButton />
         <PacienteInfo pacienteInfo={pacienteInfo} />
         <EmocaoPredominanteChart data={emocaoPredominante} />
         <RelatosSection anotacoes={anotacoes} />
@@ -78,50 +77,40 @@ const PerfilPacienteByPsciologoScreen = () => {
   );
 };
 
-export enum EMOCOES {
-  EMPOLGACAO = "Empolgação",
-  EXCITACAO = "Excitação",
-  FELICIDADE = "Felicidade",
-  TRISTEZA = "Tristeza",
-  RAIVA = "Raiva",
-  MEDO = "Medo",
-  SURPRESA = "Surpresa",
-  ENTUSIASMO = "Entusiasmo"
-}
-
-
-const corEmocao: { [key in EMOCOES]: string } = {
-  [EMOCOES.EMPOLGACAO]: '#FF8C00', // Laranja vibrante
-  [EMOCOES.EXCITACAO]: '#32CD32', // Verde limão
-  [EMOCOES.FELICIDADE]: '#FFD700', // Amarelo
-  [EMOCOES.TRISTEZA]: '#1E90FF', // Azul
-  [EMOCOES.RAIVA]: '#FF0000', // Vermelho
-  [EMOCOES.MEDO]: '#808080', // Cinza escuro
-  [EMOCOES.SURPRESA]: '#8A2BE2', // Roxo
-  [EMOCOES.ENTUSIASMO]: '#00CED1', // Azul claro / Turquesa
+const corEmocao: { [key: string]: string } = {
+  Empolgacao: '#FFA500',
+  Excitacao: '#FF69B4',
+  Felicidade: '#FFFF00',
+  Tristeza: '#4682B4',
+  Raiva: '#B22222',
+  Medo: '#2F4F4F',
+  Surpresa: '#DA70D6',
+  Entusiasmo: '#00BFFF',
 };
 
 const EmocaoPredominanteChart = ({ data }: { data: any[] }) => {
-  // Mapeando as emoções para as cores
-  const chartData = data.map(item => ({
+  if (!data.length) {
+    return <Text style={{ textAlign: 'center', marginVertical: 20 }}>Sem dados para o gráfico</Text>;
+  }
+
+  const chartData = data.map((item) => ({
     name: item.name,
     population: item.population,
-    color: corEmocao[item.name as keyof typeof corEmocao], // Atribuindo a cor correspondente
-    legendFontColor: '#7F7F7F', // Cor do texto da legenda
+    color: corEmocao[item.name] ,
+    legendFontColor: '#7F7F7F',
     legendFontSize: 15,
   }));
 
   return (
     <View style={PerfilPacienteStyle.graficoContainer}>
-      <Text style={PerfilPacienteStyle.title}>Emoção Predominante</Text>
       <PieChart
         data={chartData}
         width={width - 40}
         height={180}
         chartConfig={{
-          backgroundColor: "#e26a00",
-          backgroundGradientFrom: "#fb8c00",
-          backgroundGradientTo: "#ffdd00",
+          backgroundColor: '#e26a00',
+          backgroundGradientFrom: '#fb8c00',
+          backgroundGradientTo: '#ffdd00',
           decimalPlaces: 2,
           color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
           style: { borderRadius: 16 },
@@ -136,6 +125,10 @@ const EmocaoPredominanteChart = ({ data }: { data: any[] }) => {
 };
 
 const RelatosSection = ({ anotacoes }: { anotacoes: AnotacaoPacienteModel[] }) => {
+  if (!anotacoes.length) {
+    return <Text style={{ marginTop: 10 }}>Nenhum relato encontrado.</Text>;
+  }
+
   return (
     <View style={PerfilPacienteStyle.reports}>
       <Text style={PerfilPacienteStyle.title}>Relatos</Text>
@@ -145,9 +138,34 @@ const RelatosSection = ({ anotacoes }: { anotacoes: AnotacaoPacienteModel[] }) =
         pagingEnabled
         showsHorizontalScrollIndicator={true}
         renderItem={({ item }) => <RelatoItem anotacao={item} />}
+        keyExtractor={(item) => item.idAnotacao?.toString() || Math.random().toString()}
       />
     </View>
   );
 };
+
+const PerfilPacienteStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+  },
+  scrollContainer: {
+    flexGrow: 1,
+  },
+  graficoContainer: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  reports: {
+    marginTop: 20,
+    height: 220,
+  },
+});
 
 export default PerfilPacienteByPsciologoScreen;
