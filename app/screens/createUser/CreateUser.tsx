@@ -89,7 +89,6 @@ export default function CreateUser() {
         setTimeout(() => {navigation.navigate(ScreenRoutes.HOME_SCREEN)}, tresSegundos);
       })
       .catch((erro) => {
-        console.error("Erro inesperado ao cadastrar usuário: ", erro);
         Alert.alert("Erro", "Falha ao cadastrar usuário.");
       })
       .finally(() => {

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import ScreenRoutes from '@/constants/ScreenRoutes';
 import CustomInput from '@/common/CustomButton'; 
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { CommonActions, NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@/constants/types/RootStackParamList';
 import logo from '../../../icons/logo_tcc.png';
 import * as yup from 'yup'; 
@@ -38,31 +38,46 @@ export default function HomeScreen() {
   const { showLoading, hideLoading} = useLoading()
 
   const handleDirecionarParaAplicaoLogada = async (): Promise<void> => {
-    showLoading()
-    LoginProvider.realizarLogin({ email, senha }).then((res)=>{
-      const resultadoUsuarioLogado: UsuarioLogado = res.data;
-    
-      console.log("Usuario Logado com sucesso, informacoes: \n", resultadoUsuarioLogado);
-      console.log(`Nome: ${resultadoUsuarioLogado.usuarioLogadoData?.nome}`);
-      console.log(`Email: ${resultadoUsuarioLogado.usuarioLogadoData?.email}`);
-      console.log(`CPF: ${resultadoUsuarioLogado.usuarioLogadoData?.cpf}`);
+    showLoading();
   
-      if(resultadoUsuarioLogado.isPaciente){
+    try {
+      const res = await LoginProvider.realizarLogin({ email, senha });
+      const resultadoUsuarioLogado: UsuarioLogado = res.data;
+      setUsuarioLogado(resultadoUsuarioLogado);
+  
+      if (resultadoUsuarioLogado.isPaciente) {
         const paciente = resultadoUsuarioLogado.usuarioLogadoData as PacienteModel;
   
-        setUsuarioLogado(resultadoUsuarioLogado)
-        navigation.navigate(ScreenRoutes.REGISTROS_PACIENTE, { usuario: paciente });
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [
+              {
+                name: ScreenRoutes.REGISTROS_PACIENTE,
+                params: { usuario: paciente },
+              },
+            ],
+          })
+        );
       }
   
-      if(resultadoUsuarioLogado.isPsicologo){
-        const psicologo = resultadoUsuarioLogado.usuarioLogadoData as PsicologoModel;
-  
-        setUsuarioLogado(resultadoUsuarioLogado)
-        navigation.navigate(ScreenRoutes.HOME_PSICOLOGO_SCREEN);
+      if (resultadoUsuarioLogado.isPsicologo) {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: ScreenRoutes.HOME_PSICOLOGO_SCREEN }],
+          })
+        );
       }
-    }).finally(()=> hideLoading());
-
-  };
+    } catch (error: any) {
+  
+      const mensagem = error?.response?.data?.message || 'Não foi possível realizar o login.';
+      Alert.alert('Falha no login', mensagem);
+    } finally {
+      hideLoading();
+    }
+  };  
+  
   
 
   const handleDirecionarParaTelaDeCriarUsuario = (): void => {

@@ -87,7 +87,6 @@ export default function ProfileScreen() {
       const nomePsicologoResponsavel = psicologoResponse.nome
       setProfessional(nomePsicologoResponsavel)
     }).catch((erro)=>{
-      console.error("Falha ao obter informacoes do psicologo responsavel, ", erro)
     }).finally(()=>{
       hideLoading()
     })
