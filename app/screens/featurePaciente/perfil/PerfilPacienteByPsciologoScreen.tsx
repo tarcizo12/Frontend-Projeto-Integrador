@@ -47,15 +47,13 @@ const PerfilPacienteByPsciologoScreen = () => {
     const dadosGrafico = Object.keys(contagem).map((key) => ({
       name: key,
       population: contagem[key],
-      color: corEmocao[key as keyof typeof corEmocao] || getRandomColor(),
+      color: corEmocao[key as keyof typeof corEmocao],
       legendFontColor: '#7F7F7F',
       legendFontSize: 15,
     }));
 
     setEmocaoPredominante(dadosGrafico);
   };
-
-  const getRandomColor = () => `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
 
   if (!pacienteInfo) {
     return (

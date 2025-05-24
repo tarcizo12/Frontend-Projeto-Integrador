@@ -1,8 +1,8 @@
 import { View, Text, Image, StyleSheet } from 'react-native';
 
 const PacienteInfo = ({ pacienteInfo }: { pacienteInfo: { name: string; email: string, idPaciente: number  } }) => {
-    const uri = `https://randomuser.me/api/portraits/men/${pacienteInfo.idPaciente}.jpg`
-  
+  const uri = `https://randomuser.me/api/portraits/men/${pacienteInfo.idPaciente + 10}.jpg`
+
   
   return (
   <View style={styles.container}>

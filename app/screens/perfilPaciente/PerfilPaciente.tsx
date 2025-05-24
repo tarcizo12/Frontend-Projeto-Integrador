@@ -35,7 +35,7 @@ export default function ProfileScreen() {
   const [fieldBeingEdited, setFieldBeingEdited] = useState<'email' | 'phone' | null>(null);
   const [tempValue, setTempValue] = useState('');
 
-  const uri = `https://randomuser.me/api/portraits/men/${pacienteLogado.idPaciente}.jpg`
+  const uri = `https://randomuser.me/api/portraits/men/${pacienteLogado.idPaciente + 10}.jpg`
   const scaleEmail = useRef(new Animated.Value(1)).current;
   const scalePhone = useRef(new Animated.Value(1)).current;
 
