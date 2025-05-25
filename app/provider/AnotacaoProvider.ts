@@ -19,6 +19,13 @@ export default class AnotacaoProvider {
     return await Providers.getRequest<TituloResponse>(url);
   }
 
+    static async obterResumoDescricaoSemanal(idPaciente: number): Promise<string> {
+    const url = PATHS_API.ANOTACOES.OBTER_RESUMO_SEMANAL_GERADO.replace(":id" , idPaciente.toString())
+      
+    console.log("url", url)
+    return await Providers.getRequest<string>(url);
+  }
+
   static async salvarNovaAnotacao(anotacao: AnotacaoPacienteModel): Promise<number> {
     const url = PATHS_API.ANOTACOES.SALVAR_ANOTACAO;
     

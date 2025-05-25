@@ -1,4 +1,4 @@
-const localHostEmuladoprBasePath = "http:///10.0.0.177:3000/"
+const localHostEmuladoprBasePath = "http:///192.168.0.6:3000/"
 const localHostWebBasePath = "http://localhost:3000/"
 
 const currentPathSelected = localHostEmuladoprBasePath
@@ -12,7 +12,8 @@ const PATHS_API = {
     ANOTACOES : {
         BUSCAR_ANOTACAO_BY_PACIENTE : `${currentPathSelected}${basePathAnotacoes}buscarAnotacaoPorIdPaciente?idPaciente=:id`,
         SALVAR_ANOTACAO : `${currentPathSelected}${basePathAnotacoes}registrarAnotacao`,
-        OBTER_TITULO_GERADO : `${currentPathSelected}${basePathAnotacoes}obterTitulo?descricao=:desc`
+        OBTER_TITULO_GERADO : `${currentPathSelected}${basePathAnotacoes}obterTitulo?descricao=:desc`,
+        OBTER_RESUMO_SEMANAL_GERADO : `${currentPathSelected}${basePathAnotacoes}obterResumo?idPaciente=:id`
     },
     PACIENTE : {
         BUSCAR_PACIENTES_BY_ID_PSICOLOGO : `${currentPathSelected}${basePathPacientes}buscarPacientePorProfissional?idPsicologo=:id`

@@ -78,7 +78,6 @@ export default function HomeScreen() {
     }
   };  
   
-  
 
   const handleDirecionarParaTelaDeCriarUsuario = (): void => {
     navigation.navigate(ScreenRoutes.CREATE_USER);
