@@ -9,6 +9,14 @@ type ContainerRegistroProps = {
   status: boolean;
 };
 
+const formatarData = (dataStr?: string) => {
+  const data = dataStr ? new Date(dataStr) : new Date();
+  const dia = String(data.getDate()).padStart(2, '0');
+  const mes = String(data.getMonth() + 1).padStart(2, '0');
+  const ano = data.getFullYear();
+  return `${dia}/${mes}/${ano}`;
+};
+
 const ContainerRegistro: React.FC<ContainerRegistroProps> = ({
   title,
   icon,
@@ -25,7 +33,7 @@ const ContainerRegistro: React.FC<ContainerRegistroProps> = ({
 
       <View style={styles.dateRegisterContainer}>
         <Text style={styles.dateTextContainer}>
-          {date || new Date().toLocaleDateString('pt-BR')}
+          {formatarData(date)}
         </Text>
       </View>
 
@@ -35,11 +43,9 @@ const ContainerRegistro: React.FC<ContainerRegistroProps> = ({
             {category.trim()}
           </Text>
         ))}
-      </View>
 
-      <View style={styles.statusRegisterContainer}>
         <Text style={[
-          styles.statusText,
+          styles.textCategoriesRegisterContainer,
           status ? styles.statusActive : styles.statusInactive
         ]}>
           {status ? 'Visto' : 'Não visto'}
@@ -104,25 +110,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     overflow: 'hidden',
   },
-  statusRegisterContainer: {
-    alignSelf: 'flex-end',
-    width: screenWidth * 0.83,
-    marginTop: 5,
-  },
-  statusText: {
-    fontSize: 14,
-    fontWeight: '500',
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-    borderRadius: 12,
-  },
   statusActive: {
     backgroundColor: '#4CAF50',
-    color: '#fff',
   },
   statusInactive: {
     backgroundColor: '#F44336',
-    color: '#fff',
   },
 });
 

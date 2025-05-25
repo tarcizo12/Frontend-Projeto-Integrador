@@ -63,10 +63,7 @@ export class DateUtil {
             if (data.getFullYear() !== ano || data.getMonth() !== mes - 1 || data.getDate() !== dia) {
               return { valido: false, mensagem: 'Data inválida' };
             }
-            const hoje = new Date();
-            if (data > hoje) {
-              return { valido: false, mensagem: 'Data no futuro' };
-            }
+            
             return { valido: true };
           };
           

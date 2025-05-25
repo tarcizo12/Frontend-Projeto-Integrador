@@ -22,7 +22,6 @@ export default class AnotacaoProvider {
     static async obterResumoDescricaoSemanal(idPaciente: number): Promise<string> {
     const url = PATHS_API.ANOTACOES.OBTER_RESUMO_SEMANAL_GERADO.replace(":id" , idPaciente.toString())
       
-    console.log("url", url)
     return await Providers.getRequest<string>(url);
   }
 

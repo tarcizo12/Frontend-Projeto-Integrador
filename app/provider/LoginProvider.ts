@@ -9,7 +9,7 @@ export default class LoginProvider {
 
     public static async realizarLogin(objetoPostLogin: LoginRequest): Promise<any> {
         const url = PATHS_API.LOGIN.REALIZAR_LOGIN;
-
+        console.log(url)
         try {
             const response = await Providers.postRequest<LoginRequest, UsuarioLogado>(url, objetoPostLogin);
             console.log("Usuário logado com sucesso!", response);
