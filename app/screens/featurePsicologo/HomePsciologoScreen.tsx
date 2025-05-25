@@ -15,7 +15,9 @@ export default function HomePsciologoScreen() {
   return (
     <View style={HomeScreenStyle.container}>
       <BackButton /> 
+
       <CustomText label="Acompanhar pacientes" />  
+      <CustomText label={`Codigo #${id}`} /> 
       <RenderCellsPaciente idPsicologoLogado={id}></RenderCellsPaciente>
     </View>
 );

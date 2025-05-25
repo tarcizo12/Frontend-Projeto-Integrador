@@ -5,8 +5,9 @@ const CustomTextStyle = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#000000',
-    textAlign: 'center', // Centraliza o texto horizontalmente
-    textAlignVertical: 'center', // Centraliza o texto verticalmente
+    textAlign: 'center', 
+    textAlignVertical: 'center', 
+    marginTop: 5
   },
 
   placeholderTextColor: {

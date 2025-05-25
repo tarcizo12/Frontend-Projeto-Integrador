@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, TextInput, Alert } from 'react-native';
+import { View, TouchableOpacity, Text, TextInput, Alert, ScrollView, SafeAreaView } from 'react-native';
 import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel';
 import AnotacaoProvider from '@/app/provider/AnotacaoProvider';
 import Sidemenu from '../../Sidemenu';
@@ -60,58 +60,63 @@ export default function HomePacienteScreen() {
   };
 
   return (
-    <View style={styles.background}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerTitle}>Nova anotação</Text>
-      </View>
-
-      <View style={styles.inputContainer}>
-        <Text style={{ fontSize: 16, fontWeight: '600', marginLeft: 16, marginBottom: 8 }}>
-          Como você está se sentindo?
-        </Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Este espaço é seu: escreva sobre algo que viveu e como isso te fez sentir..."
-          multiline
-          scrollEnabled
-          value={descricaoAnotacaoText}
-          onChangeText={setDescricaoAnotacaoText}
-          textAlignVertical="top"
-        />
-      </View>
-
-      <View style={styles.titleContainer}>
-        <View style={styles.headerTitleContainer}>
-          <Text style={{ fontSize: 16, fontWeight: '600' }}>Título</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView 
+        contentContainerStyle={[styles.background, { paddingBottom: 100 }]} 
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerTitle}>Nova anotação</Text>
         </View>
-        <TextInput
-          style={styles.titleInput}
-          placeholder="Digite o título da anotação ou gere automaticamente"
-          value={tituloAnotacaoText}
-          onChangeText={setTituloAnotacaoText}
-        />
-        <View style={styles.generateTitleContainer}>
+
+        <View style={styles.inputContainer}>
+          <Text style={{ fontSize: 16, fontWeight: '600', marginLeft: 16, marginBottom: 8 }}>
+            Como você está se sentindo?
+          </Text>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Este espaço é seu: escreva sobre algo que viveu e como isso te fez sentir..."
+            multiline
+            scrollEnabled
+            value={descricaoAnotacaoText}
+            onChangeText={setDescricaoAnotacaoText}
+            textAlignVertical="top"
+          />
+        </View>
+
+        <View style={styles.titleContainer}>
+          <View style={styles.headerTitleContainer}>
+            <Text style={{ fontSize: 16, fontWeight: '600' }}>Título</Text>
+          </View>
+          <TextInput
+            style={styles.titleInput}
+            placeholder="Digite o título da anotação ou gere automaticamente"
+            value={tituloAnotacaoText}
+            onChangeText={setTituloAnotacaoText}
+          />
+          <View style={styles.generateTitleContainer}>
+            <TouchableOpacity 
+              style={styles.generateButton} 
+              onPress={gerarTitulo}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.generateButtonText}>Gerar com IA</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.addButtonContainer}>
           <TouchableOpacity 
-            style={styles.generateButton} 
-            onPress={gerarTitulo}
+            style={styles.addButton} 
+            onPress={adicionarAnotacao}
             activeOpacity={0.7}
           >
-            <Text style={styles.generateButtonText}>Gerar com IA</Text>
+            <Text style={styles.addButtonText}>Salvar</Text>
           </TouchableOpacity>
         </View>
-      </View>
-
-      <View style={styles.addButtonContainer}>
-        <TouchableOpacity 
-          style={styles.addButton} 
-          onPress={adicionarAnotacao}
-          activeOpacity={0.7}
-        >
-          <Text style={styles.addButtonText}>Salvar</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
 
       <Sidemenu />
-    </View>
+    </SafeAreaView>
   );
 }

@@ -9,9 +9,7 @@ export type RootStackParamList = {
   [ScreenRoutes.HOME_PSICOLOGO_SCREEN]: undefined;
   [ScreenRoutes.PERFIL_PACIENTE_BY_PSCIOLOGO]: { pacienteInfo: PacienteInfo };
   [ScreenRoutes.CALENDARIO_PACIENTE]: undefined;
-  [ScreenRoutes.REGISTROS_PACIENTE]: {
-    usuario: PacienteModel;
-  };
+  [ScreenRoutes.REGISTROS_PACIENTE]: undefined
   [ScreenRoutes.CREATE_USER]: undefined;
   [ScreenRoutes.FORGOT_MY_PASSWORD]: undefined;
   [ScreenRoutes.PERFIL_PACIENTE]: undefined;

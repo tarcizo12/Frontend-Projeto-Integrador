@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { View, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import Icon1 from '../../icons/calendar.png';
 import Icon2 from '../../icons/notes.png';
 import Icon3 from '../../icons/add.png';
 import Icon4 from '../../icons/person.png';
@@ -11,10 +10,6 @@ import ScreenRoutes from '../../constants/ScreenRoutes';
 const Sidemenu = () => {
   const navigation: NavigationProp<RootStackParamList> =
     useNavigation<NavigationProp<RootStackParamList>>();
-
-  const handleCalendario = async (): Promise<void> => {
-    navigation.navigate(ScreenRoutes.CALENDARIO_PACIENTE);
-  };
 
   const handleRegistros = async (): Promise<void> => {
     navigation.navigate(ScreenRoutes.REGISTROS_PACIENTE);
@@ -28,18 +23,16 @@ const Sidemenu = () => {
     navigation.navigate(ScreenRoutes.PERFIL_PACIENTE);
   };
 
+ 
   return (
     <View style={styles.bottomMenu}>
-      {/* <TouchableOpacity style={styles.menuOption} onPress={() => handleCalendario()}>
-        <Image source={Icon1} style={styles.menuImage} />
-      </TouchableOpacity> */}
-      <TouchableOpacity style={styles.menuOption} onPress={() => handleRegistros()}>
+      <TouchableOpacity style={styles.menuOption} onPress={handleRegistros}>
         <Image source={Icon2} style={styles.menuImage} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.menuOption} onPress={() => handleAddRegistros()}>
+      <TouchableOpacity style={styles.menuOption} onPress={handleAddRegistros}>
         <Image source={Icon3} style={styles.menuImage} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.menuOption} onPress={() => handlePerfil()}>
+      <TouchableOpacity style={styles.menuOption} onPress={handlePerfil}>
         <Image source={Icon4} style={styles.menuImage} />
       </TouchableOpacity>
     </View>
@@ -48,24 +41,33 @@ const Sidemenu = () => {
 
 const styles = StyleSheet.create({
   bottomMenu: {
+    position: 'absolute',        
+    bottom: 0,                   
+    left: 0,
+    right: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingVertical: 15,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#20A69F',
-    width: '100%',
-    height: 60,
+    paddingVertical: 10,
+    backgroundColor: '#20A69F',   
+    borderTopLeftRadius: 20,      
+    borderTopRightRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 10,
+    zIndex: 100,                  
   },
   menuOption: {
-    padding: 10,
+    padding: 15,
     alignItems: 'center',
   },
   menuImage: {
-    width: 30,
-    height: 30,
+    width: 25,                   
+    height: 25,
     resizeMode: 'contain',
+    tintColor: '#fff',           
   },
 });
 
