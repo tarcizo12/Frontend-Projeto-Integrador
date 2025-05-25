@@ -3,7 +3,7 @@ import { Dimensions, Keyboard } from 'react-native';
 import { SearchBar } from '@rneui/base';
 
 
-export default function SearchBarPacientes({ placeholder }: { placeholder: string}) {
+const SearchBarPacientes = ({ placeholder }: { placeholder: string}) => {
   const { width } = Dimensions.get('window');
 
     const style = {

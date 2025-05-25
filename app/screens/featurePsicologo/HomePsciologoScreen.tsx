@@ -2,7 +2,6 @@ import React from 'react';
 import {View } from 'react-native';
 import HomeScreenStyle from '@/styles/HomeScreenStyle';
 import CustomText from '@/common/CustomText';
-import SearchBarPacientes from '@/common/SearchBarPacientes';
 import RenderCellsPaciente from './components/RenderCellsPaciente';
 import BackButton from '@/common/BackButton';
 import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
@@ -17,7 +16,6 @@ export default function HomePsciologoScreen() {
     <View style={HomeScreenStyle.container}>
       <BackButton /> 
       <CustomText label="Acompanhar pacientes" />  
-      <SearchBarPacientes placeholder={'Buscar paciente'} />  
       <RenderCellsPaciente idPsicologoLogado={id}></RenderCellsPaciente>
     </View>
 );

@@ -9,11 +9,8 @@ export default class LoginProvider {
 
     public static async realizarLogin(objetoPostLogin: LoginRequest): Promise<any> {
         const url = PATHS_API.LOGIN.REALIZAR_LOGIN;
-        console.log(url)
         try {
             const response = await Providers.postRequest<LoginRequest, UsuarioLogado>(url, objetoPostLogin);
-            console.log("Usuário logado com sucesso!", response);
-
             return response;
         } catch (error) {
             if (error instanceof AxiosError) {
@@ -30,9 +27,8 @@ export default class LoginProvider {
         const url = PATHS_API.LOGIN.REALIZAR_CADASTRO;
 
         try {
-            console.log("Cadastrando...", objetoNovoUsuario)
+            console.log("Cadastrando...", objetoNovoUsuario.name)
             const response = await Providers.postRequest<UserPayload, UsuarioLogado>(url, objetoNovoUsuario);
-            console.log("Novo usuário cadastrado com sucesso!");
 
             return response;
         } catch (error) {
