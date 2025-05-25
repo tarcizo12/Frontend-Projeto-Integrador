@@ -17,13 +17,9 @@ import * as yup from 'yup';
 import LoginProvider from '@/app/provider/LoginProvider';
 import { UsuarioLogado } from '@/constants/models/UsuarioLogado';
 import { PacienteModel } from '@/constants/models/PacienteModel';
-import { PsicologoModel } from '@/constants/models/PsicologoModel';
 import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
 import { useLoading } from '@/hooks/LoadingContext';
-
-
-const screenHeight = Dimensions.get('window').height;
-
+import { StyleHomeScreenLogin } from '@/styles/HomeScreenStyle';
 
 const emailSchema = yup.object().shape({
   email: yup.string().email('Email inválido').required('O email é obrigatório'),
@@ -77,20 +73,17 @@ export default function HomeScreen() {
       hideLoading();
     }
   };  
-  
+
 
   const handleDirecionarParaTelaDeCriarUsuario = (): void => {
     navigation.navigate(ScreenRoutes.CREATE_USER);
   };
 
-  const handleDirecionarParaTelaDeRecuperarSenha = (): void => {
-    navigation.navigate(ScreenRoutes.FORGOT_MY_PASSWORD);
-  };
 
   return (
-    <View style={styles.external}>
-      <View style={styles.internal}>
-        <Image source={logo} style={styles.logo} />
+    <View style={StyleHomeScreenLogin.external}>
+      <View style={StyleHomeScreenLogin.internal}>
+        <Image source={logo} style={StyleHomeScreenLogin.logo} />
 
         <CustomInput
           label="Email"
@@ -110,67 +103,15 @@ export default function HomeScreen() {
           secureTextEntry func={undefined}        
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleDirecionarParaAplicaoLogada}>
-          <Text style={styles.buttonText}>Login</Text>
+        <TouchableOpacity style={StyleHomeScreenLogin.button} onPress={handleDirecionarParaAplicaoLogada}>
+          <Text style={StyleHomeScreenLogin.buttonText}>Login</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={handleDirecionarParaTelaDeCriarUsuario}>
-          <Text style={styles.linkText}>Criar conta</Text>
+          <Text style={StyleHomeScreenLogin.linkText}>Criar conta</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 
-  const ComponenteEsqueciASenha = () => {
-    return (
-          <View style={styles.footer}>
-            <TouchableOpacity onPress={handleDirecionarParaTelaDeRecuperarSenha}>
-              <Text style={styles.linkText}>Esqueci minha senha</Text>
-            </TouchableOpacity>
-          </View>
-    )
-  }
 }
-
-
-
-const styles = StyleSheet.create({
-  external: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: 20,
-    paddingBottom: 20,
-  },
-  internal: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  logo: {
-    width: 200,
-    height: 100,
-    marginBottom: 30,
-  },
-  button: {
-    backgroundColor: '#20a69f',
-    width: '80%',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginTop: 30,
-    marginBottom: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
-  linkText: {
-    color: '#1E90FF',
-    fontSize: 14,
-    marginVertical: 5,
-  },
-  footer: {
-    marginTop: screenHeight * 0.2,
-    alignItems: 'flex-end',
-  },
-});

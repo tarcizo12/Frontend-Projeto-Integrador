@@ -1,4 +1,7 @@
+import { Dimensions } from 'react-native';
 import { StyleSheet } from 'react-native';
+const screenHeight = Dimensions.get('window').height;
+
 
 const HomeScreenStyle = StyleSheet.create({
   container: {
@@ -7,7 +10,7 @@ const HomeScreenStyle = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingTop: 10,
-    backgroundColor: '#E6ECF2', // Melhor contraste com #6495ED
+    backgroundColor: '#E6ECF2', 
   },  
   titleContainer: {
     width: '100%',
@@ -41,4 +44,46 @@ const HomeScreenStyle = StyleSheet.create({
   },
 });
 
-export default HomeScreenStyle;
+
+const StyleHomeScreenLogin = StyleSheet.create({
+  external: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+  internal: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 200,
+    height: 100,
+    marginBottom: 30,
+  },
+  button: {
+    backgroundColor: '#20a69f',
+    width: '80%',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 30,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  linkText: {
+    color: '#1E90FF',
+    fontSize: 14,
+    marginVertical: 5,
+  },
+  footer: {
+    marginTop: screenHeight * 0.2,
+    alignItems: 'flex-end',
+  },
+});
+
+export { StyleHomeScreenLogin ,HomeScreenStyle};

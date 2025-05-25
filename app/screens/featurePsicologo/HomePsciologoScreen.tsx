@@ -1,6 +1,6 @@
 import React from 'react';
 import {View } from 'react-native';
-import HomeScreenStyle from '@/styles/HomeScreenStyle';
+import {HomeScreenStyle} from '@/styles/HomeScreenStyle';
 import CustomText from '@/common/CustomText';
 import RenderCellsPaciente from './components/RenderCellsPaciente';
 import BackButton from '@/common/BackButton';
