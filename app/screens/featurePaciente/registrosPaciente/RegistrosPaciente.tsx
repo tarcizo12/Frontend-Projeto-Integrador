@@ -11,19 +11,17 @@ import {
   Alert,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import Sidemenu from '../../Sidemenu';
 import ContainerRegistro from './components/ContainerRegistro';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel';
 import AnotacaoProvider from '@/app/provider/AnotacaoProvider';
 import { PacienteModel } from '@/constants/models/PacienteModel';
 import RelatoModal from './components/RelatoModal';
-import RegistrosPacientesProps from '@/constants/models/RegistrosPacientesProps';
 import { DateUtil } from '@/util/DateUtil';
-import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
+import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider';
 import styles from '@/styles/RegistrosPacienteStyle';
 
-const RegistrosPaciente: React.FC<RegistrosPacientesProps> = ({ route }) => {
+const RegistrosPaciente: React.FC = () => {
   const { usuarioLogado } = useUsuarioLogado();
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -222,7 +220,7 @@ const salvarFiltros = () => {
       {/* Lista de Registros */}
       <View style={styles.backgroundRegistro}>
         <FlatList
-          contentContainerStyle={styles.scrollContainer}
+          contentContainerStyle={[styles.scrollContainer, { paddingBottom: 20 }]}
           data={anotacoesFiltradas}
           keyExtractor={(item) => String(item.idAnotacao)}
           renderItem={({ item }) => (
@@ -237,11 +235,6 @@ const salvarFiltros = () => {
           )}
           showsVerticalScrollIndicator={false}
         />
-      </View>
-
-      {/* Menu */}
-      <View style={styles.menu}>
-        <Sidemenu />
       </View>
     </View>
   );

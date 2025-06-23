@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, textAlign: 'center' },
   input: {
     height: 40, borderColor: '#ccc', borderWidth: 1, borderRadius: 5,
-    marginBottom: 15, paddingHorizontal: 10,
+    marginBottom: 15, paddingHorizontal: 10, color: '#000'
   },
   datePickerButton: {
     borderColor: '#ccc', borderWidth: 1, borderRadius: 5,

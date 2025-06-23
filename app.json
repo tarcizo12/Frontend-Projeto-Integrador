@@ -20,10 +20,20 @@
       "bundler": "metro"
     },
     "ios": {
-      "bundleIdentifier": "com.brunoppneves.Frontend-Projeto-Integrador"
+      "bundleIdentifier": "com.brunoppneves.Frontend-Projeto-Integrador",
+      "buildNumber": "1"
     },
     "android": {
-      "package": "com.brunoppneves.FrontendProjetoIntegrador"
+      "package": "com.brunoppneves.FrontendProjetoIntegrador",
+      "versionCode": 1
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "b13c095f-965e-47f4-b61b-3d024bf8c90c"
+      }
     }
   }
 }

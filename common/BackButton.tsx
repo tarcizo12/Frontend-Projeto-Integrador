@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
+import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider';
 import { RootStackParamList } from '@/constants/types/RootStackParamList';
 import ScreenRoutes from '@/constants/ScreenRoutes';
 

@@ -1,8 +1,8 @@
-const localHostEmuladoprBasePath = "http:///10.0.0.112:3000/"
+const localHostEmuladoprBasePath = "https://api-projeto-integrador-dn7g.onrender.com/"
 const pathApiDeploy = "http://52.2.138.239:3000/"
 const localHostWebBasePath = "http://localhost:3000/"
 
-const currentPathSelected = localHostEmuladoprBasePath
+const currentPathSelected = localHostWebBasePath
 const basePathAnotacoes = "anotacao/"
 const basePathPacientes = "paciente/"
 const basePathLogin = "login/login"

@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import Sidemenu from '../../Sidemenu';
 
 export default function App() {
   return (
@@ -27,7 +26,6 @@ export default function App() {
         }}
         markingType={'multi-dot'}
       />
-    < Sidemenu />
     </View>
   );
 }

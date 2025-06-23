@@ -2,36 +2,63 @@ import { AnotacaoPacienteModel } from '../models//AnotacaoPacienteModel';
 
 export class AnotacaoPacienteMockFactory {
     
-    private static criarMockAnotacao(
-        idAnotacao: number,
-        descricao: string,
-        dhRegistro: Date,
-        fk_idPaciente: number,
-        emocaoEstimada: string | null = null
-    ): AnotacaoPacienteModel {
-        return new AnotacaoPacienteModel(idAnotacao, descricao, dhRegistro, fk_idPaciente, emocaoEstimada);
-    }
-
     public static criarListaMockAnotacoes(): AnotacaoPacienteModel[] {
-        return [
-            this.criarMockAnotacao(1, 'Descrição 1', new Date('2023-01-01'), 101, 'Feliz'),
-            this.criarMockAnotacao(2, 'Descrição 2', new Date('2023-02-01'), 102, 'Triste'),
-            this.criarMockAnotacao(3, 'Descrição 3', new Date('2023-03-01'), 103, 'Neutro'),
-            this.criarMockAnotacao(4, 'Descrição 4', new Date('2023-04-01'), 104, null),
-            this.criarMockAnotacao(5, 'Descrição 5', new Date('2023-05-01'), 105, 'Ansioso')
-        ];
+        const anotacoes: AnotacaoPacienteModel[] = [];
+        let a1 = new AnotacaoPacienteModel();
+        a1.idAnotacao = 1;
+        a1.descricao = 'Descrição 1';
+        a1.dhRegistro = new Date('2023-01-01');
+        a1._fk_idPaciente = 101;
+        a1.emocaoEstimada = 'Feliz';
+        anotacoes.push(a1);
+        let a2 = new AnotacaoPacienteModel();
+        a2.idAnotacao = 2;
+        a2.descricao = 'Descrição 2';
+        a2.dhRegistro = new Date('2023-02-01');
+        a2._fk_idPaciente = 102;
+        a2.emocaoEstimada = 'Triste';
+        anotacoes.push(a2);
+        let a3 = new AnotacaoPacienteModel();
+        a3.idAnotacao = 3;
+        a3.descricao = 'Descrição 3';
+        a3.dhRegistro = new Date('2023-03-01');
+        a3._fk_idPaciente = 103;
+        a3.emocaoEstimada = 'Neutro';
+        anotacoes.push(a3);
+        let a4 = new AnotacaoPacienteModel();
+        a4.idAnotacao = 4;
+        a4.descricao = 'Descrição 4';
+        a4.dhRegistro = new Date('2023-04-01');
+        a4._fk_idPaciente = 104;
+        a4.emocaoEstimada = null;
+        anotacoes.push(a4);
+        let a5 = new AnotacaoPacienteModel();
+        a5.idAnotacao = 5;
+        a5.descricao = 'Descrição 5';
+        a5.dhRegistro = new Date('2023-05-01');
+        a5._fk_idPaciente = 105;
+        a5.emocaoEstimada = 'Ansioso';
+        anotacoes.push(a5);
+        return anotacoes;
     }
 
     public static getAnotacaoPacienteInicialValues(): AnotacaoPacienteModel{
-        return this.criarMockAnotacao(0,'', new Date(), 0, '')
+        return new AnotacaoPacienteModel();
     }
 
     // Ajustando relatos para retornar AnotacaoPacienteModel[]
-    public static relatos: AnotacaoPacienteModel[] = [
-        this.criarMockAnotacao(1, 'Paciente relatou que está com dificuldades para dormir.', new Date('2021-09-01'), 101, 'Triste'),
-        this.criarMockAnotacao(2, 'Paciente relatou que está com dificuldades para dormir.', new Date('2021-09-02'), 102, 'Triste'),
-        this.criarMockAnotacao(3, 'Paciente relatou que está com dificuldades para dormir.', new Date('2021-09-03'), 103, 'Triste'),
-        this.criarMockAnotacao(4, 'Paciente relatou que está com dificuldades para dormir.', new Date('2021-09-04'), 104, 'Triste'),
-    ];
+    public static relatos: AnotacaoPacienteModel[] = (() => {
+        const arr: AnotacaoPacienteModel[] = [];
+        for (let i = 1; i <= 4; i++) {
+            let a = new AnotacaoPacienteModel();
+            a.idAnotacao = i;
+            a.descricao = 'Paciente relatou que está com dificuldades para dormir.';
+            a.dhRegistro = new Date(`2021-09-0${i}`);
+            a._fk_idPaciente = 100 + i;
+            a.emocaoEstimada = 'Triste';
+            arr.push(a);
+        }
+        return arr;
+    })();
 
 }

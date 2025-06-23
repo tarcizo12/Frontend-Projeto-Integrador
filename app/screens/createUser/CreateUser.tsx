@@ -12,6 +12,10 @@ import {
   TouchableOpacity,
   Platform,
   Pressable,
+  ScrollView,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import UserPayload from '@/constants/models/UserPayload';
@@ -182,104 +186,118 @@ const CreateUser = () => {
   }, [isPsychologist]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Criar Usuário</Text>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text style={styles.title}>Criar Usuário</Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Nome"
-        value={name}
-        onChangeText={setName}
-      />
+          <TextInput
+            style={styles.input}
+            placeholder="Nome"
+            placeholderTextColor="#888"
+            value={name}
+            onChangeText={setName}
+          />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-      />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            placeholderTextColor="#888"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+          <TextInput
+            style={styles.input}
+            placeholder="Senha"
+            placeholderTextColor="#888"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
 
-      <TextInput
-        style={styles.input}
-        placeholder="CPF"
-        value={cpf}
-        onChangeText={(text) => setCpf(formatCPF(text))}
-        keyboardType="numeric"
-      />
+          <TextInput
+            style={styles.input}
+            placeholder="CPF (apenas números)"
+            placeholderTextColor="#888"
+            value={cpf}
+            onChangeText={(text) => setCpf(formatCPF(text))}
+            keyboardType="numeric"
+          />
+          
+          <TextInput
+            style={styles.input}
+            placeholder="Telefone"
+            placeholderTextColor="#888"
+            value={phone}
+            onChangeText={(text) => setPhone(formatPhone(text))}
+            keyboardType="phone-pad"
+          />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Telefone"
-        value={phone}
-        onChangeText={(text) => setPhone(formatPhone(text))}
-        keyboardType="phone-pad"
-      />
+          <Pressable onPress={() => setShowDatePicker(true)} style={styles.datePickerButton}>
+            <Text style={styles.datePickerText}>
+              {birthDate ? formatDate(birthDate) : 'Selecionar data de nascimento'}
+            </Text>
+          </Pressable>
 
-      <Pressable onPress={() => setShowDatePicker(true)} style={styles.datePickerButton}>
-        <Text style={styles.datePickerText}>
-          {birthDate ? formatDate(birthDate) : 'Selecionar data de nascimento'}
-        </Text>
-      </Pressable>
+          {showDatePicker && (
+            <DateTimePicker
+              value={birthDate || new Date()}
+              mode="date"
+              display="default"
+              onChange={(event, selectedDate) => {
+                setShowDatePicker(false);
+                if (selectedDate) {
+                  setBirthDate(selectedDate);
+                }
+              }}
+            />
+          )}
 
-      {showDatePicker && (
-        <DateTimePicker
-          value={birthDate || new Date()}
-          mode="date"
-          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          onChange={(event, selectedDate) => {
-            setShowDatePicker(Platform.OS === 'ios');
-            if (selectedDate) setBirthDate(selectedDate);
-          }}
-          maximumDate={new Date()}
-        />
-      )}
-
-      <View style={styles.switchContainer}>
-        <Text>Sou psicólogo:</Text>
-        <Switch value={isPsychologist} onValueChange={setIsPsychologist} />
-      </View>
-
-      {isPsychologist ? (
-        <TextInput
-          style={styles.input}
-          placeholder="CRP"
-          value={crp}
-          onChangeText={setCrp}
-        />
-      ) : (
-        <TextInput
-          style={styles.input}
-          placeholder="Código do psicólogo"
-          value={codigoPsicologo}
-          onChangeText={setCodigoPsicologo}
-          keyboardType="numeric"
-        />
-      )}
-
-      <View style={styles.termsContainer}>
-        <TouchableOpacity
-          onPress={() => setAcceptedTerms(!acceptedTerms)}
-          style={styles.checkbox}
-        >
-          <View style={[styles.checkboxSquare, acceptedTerms && styles.checkboxSquareChecked]}>
-            {acceptedTerms && <Text style={styles.checkmark}>✓</Text>}
+          <View style={styles.switchContainer}>
+            <Text>Sou psicólogo:</Text>
+            <Switch value={isPsychologist} onValueChange={setIsPsychologist} />
           </View>
-          <Text style={styles.checkboxText}>Aceito os Termos de Uso</Text>
-        </TouchableOpacity>
-      </View>
 
-      <Button title="Criar" onPress={handleCreateUser} />
-      <Button title="Voltar" onPress={handleGoBack} color="#FF6347" />
-    </View>
+          {isPsychologist ? (
+            <TextInput
+              style={styles.input}
+              placeholder="CRP"
+              value={crp}
+              onChangeText={setCrp}
+            />
+          ) : (
+            <TextInput
+              style={styles.input}
+              placeholder="Código do psicólogo"
+              value={codigoPsicologo}
+              onChangeText={setCodigoPsicologo}
+              keyboardType="numeric"
+            />
+          )}
+
+          <View style={styles.termsContainer}>
+            <TouchableOpacity
+              onPress={() => setAcceptedTerms(!acceptedTerms)}
+              style={styles.checkbox}
+            >
+              <View style={[styles.checkboxSquare, acceptedTerms && styles.checkboxSquareChecked]}>
+                {acceptedTerms && <Text style={styles.checkmark}>✓</Text>}
+              </View>
+              <Text style={styles.checkboxText}>Aceito os Termos de Uso</Text>
+            </TouchableOpacity>
+          </View>
+
+          <Button title="Criar" onPress={handleCreateUser} />
+          <Button title="Voltar" onPress={handleGoBack} color="#FF6347" />
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

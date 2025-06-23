@@ -9,7 +9,7 @@ import {
   Dimensions,
 } from 'react-native';
 import ScreenRoutes from '@/constants/ScreenRoutes';
-import CustomInput from '@/common/CustomButton'; 
+import CustomInput from '@/common/CustomButton';
 import { CommonActions, NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@/constants/types/RootStackParamList';
 import logo from '../../../icons/logo_tcc.png';
@@ -17,7 +17,7 @@ import * as yup from 'yup';
 import LoginProvider from '@/app/provider/LoginProvider';
 import { UsuarioLogado } from '@/constants/models/UsuarioLogado';
 import { PacienteModel } from '@/constants/models/PacienteModel';
-import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
+import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider';
 import { useLoading } from '@/hooks/LoadingContext';
 import { StyleHomeScreenLogin } from '@/styles/HomeScreenStyle';
 
@@ -49,8 +49,7 @@ export default function HomeScreen() {
             index: 0,
             routes: [
               {
-                name: ScreenRoutes.REGISTROS_PACIENTE,
-                params: { usuario: paciente },
+                name: ScreenRoutes.HOME_PACIENTE_SCREEN,
               },
             ],
           })

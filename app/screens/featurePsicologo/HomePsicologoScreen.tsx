@@ -4,10 +4,10 @@ import {HomeScreenStyle} from '@/styles/HomeScreenStyle';
 import CustomText from '@/common/CustomText';
 import RenderCellsPaciente from './components/RenderCellsPaciente';
 import BackButton from '@/common/BackButton';
-import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
+import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider';
 import { PsicologoModel } from '@/constants/models/PsicologoModel';
 
-export default function HomePsciologoScreen() {
+export default function HomePsicologoScreen() {
   const { usuarioLogado } = useUsuarioLogado();
   const psicologoLogado = usuarioLogado.usuarioLogadoData as PsicologoModel
   const id = psicologoLogado.idProfissional;

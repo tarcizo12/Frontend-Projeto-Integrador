@@ -13,4 +13,8 @@ export type RootStackParamList = {
   [ScreenRoutes.CREATE_USER]: undefined;
   [ScreenRoutes.FORGOT_MY_PASSWORD]: undefined;
   [ScreenRoutes.PERFIL_PACIENTE]: undefined;
+  // Rotas do TabNavigator
+  HomePacienteTab: undefined;
+  RegistrosPacienteTab: undefined;
+  PerfilPacienteTab: undefined;
 };

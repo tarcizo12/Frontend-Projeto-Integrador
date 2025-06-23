@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, TextInput, Alert, ScrollView, SafeAreaView } from 'react-native';
+import { View, TouchableOpacity, Text, TextInput, Alert, ScrollView } from 'react-native';
 import { AnotacaoPacienteModel } from '@/constants/models/AnotacaoPacienteModel';
 import AnotacaoProvider from '@/app/provider/AnotacaoProvider';
-import Sidemenu from '../../Sidemenu';
 import styles from '@/styles/HomePacienteScreenStyle';
 
 import { useLoading } from '@/hooks/LoadingContext';
 import { PacienteModel } from '@/constants/models/PacienteModel';
-import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider ';
+import { useUsuarioLogado } from '@/hooks/UsuarioLogadoProvider';
 
 export default function HomePacienteScreen() {
   const [descricaoAnotacaoText, setDescricaoAnotacaoText] = useState('');
@@ -60,10 +59,11 @@ export default function HomePacienteScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
       <ScrollView 
-        contentContainerStyle={[styles.background, { paddingBottom: 100 }]} 
+        contentContainerStyle={[styles.background, { paddingBottom: 120 }]}
         keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
         <View style={styles.headerContainer}>
           <Text style={styles.headerTitle}>Nova anotação</Text>
@@ -115,8 +115,6 @@ export default function HomePacienteScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      <Sidemenu />
-    </SafeAreaView>
+    </View>
   );
 }

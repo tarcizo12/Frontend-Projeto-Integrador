@@ -1,5 +1,7 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import styles from '@/styles/PerfilPacienteStyle';
 
 type Props = {
   handleChangePassword: () => void;
@@ -7,26 +9,14 @@ type Props = {
 
 const TrocarSenhaButton: React.FC<Props> = ({ handleChangePassword }) => {
   return (
-    <View>
-      <TouchableOpacity style={styles.button} onPress={handleChangePassword}>
-        <Text style={styles.buttonText}>Trocar Senha</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity style={styles.infoRow} onPress={handleChangePassword}>
+      <View style={styles.infoIconContainer}><Feather name="lock" size={20} color="#adb5bd" /></View>
+      <View style={styles.infoTextContainer}>
+        <Text style={styles.infoValue}>Trocar Senha</Text>
+      </View>
+      <Feather name="chevron-right" size={20} color="#adb5bd" />
+    </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    marginTop: 20,
-    backgroundColor: '#e0e0e0',
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-    borderRadius: 8,
-  },
-  buttonText: {
-    fontSize: 16,
-    color: '#333',
-  },
-});
 
 export default TrocarSenhaButton;
